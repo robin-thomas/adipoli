@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import Card from '../components/card';
 import Container from '../components/container';
+import RegisterForm from '../components/registerform';
 
 const Register = () => (
   <Container title="Adipoli | Register">
@@ -9,18 +10,7 @@ const Register = () => (
       Reg<span>ister</span>
     </h1>
 
-    <div className="grid">
-      <Card
-        title="Flight Insurance"
-        description="No insurance claims. Eligible policies paid out automatically!"
-        href="/flight-insurance"
-      />
-      <Card
-        title="Wallet"
-        description="P2P transfers. Virtual credit cards. Cryptocurrency deposits."
-        href="/wallet"
-      />
-    </div>
+    <RegisterForm/>
 
     <p className="description">
       Already have an account?{' '}

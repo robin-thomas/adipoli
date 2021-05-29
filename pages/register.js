@@ -4,17 +4,10 @@ import Card from '../components/card';
 import Container from '../components/container';
 
 export default () => (
-  <Container title="Adipoli!">
+  <Container title="Adipoli | Register">
     <h1 className="title">
-      Adi<span>Poli!</span>
+      Reg<span>ister</span>
     </h1>
-
-    <p className="description">
-      Get started by creating an{' '}
-      <Link href="/login">
-        <a>account</a>
-      </Link>.
-    </p>
 
     <div className="grid">
       <Card
@@ -28,5 +21,12 @@ export default () => (
         href="/wallet"
       />
     </div>
+
+    <p className="description">
+      Already have an account?{' '}
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
+    </p>
   </Container>
 );

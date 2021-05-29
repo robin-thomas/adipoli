@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Card from '../components/card';
 import Container from '../components/container';
 
-export default () => (
+const Register = () => (
   <Container title="Adipoli | Register">
     <h1 className="title">
       Reg<span>ister</span>
@@ -30,3 +30,5 @@ export default () => (
     </p>
   </Container>
 );
+
+export default Register;

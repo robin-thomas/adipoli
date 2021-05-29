@@ -8,6 +8,7 @@ const Container = ({ title, children }) => (
     <Head>
       <title>{title}</title>
       <link rel="icon" href="/images/favicon.ico" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </Head>
 
     <main>

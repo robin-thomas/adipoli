@@ -18,11 +18,7 @@ const Login = () => {
 
   const onSubmit = async (email) => {
     await mutateUser(
-      fetchJson('/api/session/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
+      fetchJson('/api/session/login', { method: 'POST', body: { email } })
     );
   }
 

@@ -14,21 +14,30 @@ import styles from './form.module.css';
 
 const RegisterForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  const onChange = (e) => {
+  const isInvalid = (val) => !val || val === '';
+
+  const onEmailChange = (e) => {
     const val = e.target.value;
-    setDisabled(!val || val === '');
+    setDisabled(isInvalid(val) || isInvalid(mobile));
     setEmail(val);
+  }
+
+  const onMobileChange = (e) => {
+    const val = e.target.value;
+    setDisabled(isInvalid(email) || isInvalid(val));
+    setMobile(val);
   }
 
   const _onSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await onSubmit(email);
+      await onSubmit(email, mobile);
     } catch (error) {
-      console.error('An unexpected error happened:', error)
+      console.error(error)
     }
   }
 
@@ -37,12 +46,12 @@ const RegisterForm = ({ onSubmit }) => {
       <IconButton className={styles.iconButton}>
         <AccountCircle />
       </IconButton>
-      <InputBase className={styles.input} placeholder="Email"/>
+      <InputBase value={email} onChange={onEmailChange} className={styles.input} placeholder="Email"/>
       <Divider className={styles.divider} orientation="vertical" />
       <IconButton className={styles.iconButton}>
         <PhoneAndroidIcon />
       </IconButton>
-      <InputBase className={styles.input} placeholder="Mobile"/>
+      <InputBase value={mobile} onChange={onMobileChange} className={styles.input} placeholder="Mobile"/>
       <IconButton disabled={disabled} type="submit" className={styles.iconButton} onClick={_onSubmit}>
         <Icon>send</Icon>
       </IconButton>

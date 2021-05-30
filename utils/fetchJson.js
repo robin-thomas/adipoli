@@ -1,6 +1,11 @@
-export default async function fetcher(...args) {
+export default async function fetcher(url, params) {
   try {
-    const response = await fetch(...args)
+    if (params) {
+      params.headers = { 'Content-Type': 'application/json' };
+      params.body = typeof params.body === 'object' ? JSON.stringify(params.body) : params.body;
+    }
+
+    const response = await fetch(url, params);
 
     // if the server replies, there's always some data in json
     // if there's a network error, it will throw at the previous line

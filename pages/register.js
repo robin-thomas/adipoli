@@ -16,13 +16,13 @@ const Register = () => {
     return null;
   }
 
-  const onSubmit = async (email) => {
+  const onSubmit = async (email, mobile) => {
+    // Create the user.
+    await fetchJson('/api/register', { method: 'POST', body: { email, mobile } });
+
+    // Create the session.
     await mutateUser(
-      fetchJson('/api/session/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
+      fetchJson('/api/session/login', { method: 'POST', body: { email } })
     );
   }
 

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Card from '../components/card';
 import Container from '../components/container';
 
-export default () => (
+const Index = () => (
   <Container title="Adipoli!">
     <h1 className="title">
       Adi<span>Poli!</span>
@@ -11,7 +11,7 @@ export default () => (
 
     <p className="description">
       Get started by creating an{' '}
-      <Link href="/login">
+      <Link href="/register">
         <a>account</a>
       </Link>.
     </p>
@@ -30,3 +30,5 @@ export default () => (
     </div>
   </Container>
 );
+
+export default Index;

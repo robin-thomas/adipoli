@@ -12,6 +12,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import CryptoJS from 'crypto-js';
 
 import MainLayout from '../components/MainLayout';
 import useUser from '../components/lib/useUser';
@@ -27,16 +28,19 @@ const Register = () => {
     return null;
   }
 
-  const onSubmit = async ({ email, password }, setStatus) => {
+  const onSubmit = async ({ fullName, email, password }, setStatus) => {
     setStatus(null);
 
-    const body = { email, password };
+    const salt = CryptoJS.lib.WordArray.random(32).toString();
+    const hash = CryptoJS.SHA3(`${password}${salt}`).toString();
+
+    const body = { fullName, email, hash, salt };
 
     try {
       // Create the user.
       await fetchJson('/api/register', { method: 'POST', body });
     } catch (err) {
-      return setStatus('Failed to create an account! Please try again.');
+      return setStatus(err.data.error ?? 'Failed to create an account! Please try again.');
     }
 
     try {
@@ -45,6 +49,7 @@ const Register = () => {
         fetchJson('/api/session/login', { method: 'POST', body })
       );
     } catch (err) {
+      console.log('error', err.data);
       return setStatus('Failed to create a session! Please try again.');
     }
   }
@@ -64,16 +69,15 @@ const Register = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
-              lastName: '',
+              fullName: '',
               password: '',
               policy: false
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                fullName: Yup.string().max(255).required('Full name is required'),
-                password: Yup.string().max(255).required('Password is required'),
+                email: Yup.string().email('Must be a valid email').max(100).required('Email is required'),
+                fullName: Yup.string().max(100).required('Full name is required'),
+                password: Yup.string().max(32).required('Password is required'),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }

@@ -18,11 +18,13 @@ export default async function fetcher(url, params) {
     const error = new Error(response.statusText)
     error.response = response
     error.data = data
+
     throw error
   } catch (error) {
     if (!error.data) {
       error.data = { message: error.message }
     }
+
     throw error
   }
 }

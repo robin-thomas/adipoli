@@ -31,11 +31,10 @@ const Login = () => {
     const body = { email, password };
 
     try {
-      await mutateUser(
-        fetchJson('/api/session/login', { method: 'POST', body })
-      );
+      const resp = await fetchJson('/api/session/login', { method: 'POST', body });
+      await mutateUser(resp);
     } catch (err) {
-      setStatus('Incorrect username or password!');
+      setStatus(err.data.error ?? 'Incorrect username or password!');
     }
   }
 

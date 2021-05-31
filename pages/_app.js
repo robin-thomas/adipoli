@@ -5,7 +5,7 @@ import fetch from '../utils/fetchJson'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import theme from '../theme';
-import GlobalStyles from '../components/GlobalStyles';
+import GlobalStyles from '../theme/GlobalStyles';
 
 export default function App({ Component, pageProps }) {
   return (

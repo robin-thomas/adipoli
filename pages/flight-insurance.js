@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import Card from '../components/card';
-import Container from '../components/container';
+import MainLayout from '../components/MainLayout';
 import useUser from '../components/lib/useUser';
 
 const FlightInsurance = () => {
@@ -12,11 +12,11 @@ const FlightInsurance = () => {
   }
 
   return (
-    <Container title="Adipoli | Flight Insurance">
+    <MainLayout title="Flight Insurance">
       <h1 className="title">
         Flight <span>Insurance</span>
       </h1>
-    </Container>
+    </MainLayout>
   )
 };
 

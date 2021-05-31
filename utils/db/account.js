@@ -12,6 +12,13 @@ const Account = {
       created: new Date(),
     });
   },
+
+  getAccount: async (email) => {
+    const db = await DbUtil.getDB();
+    const collection = db.collection('account');
+
+    return await collection.findOne({ email });
+  },
 };
 
 export default Account;

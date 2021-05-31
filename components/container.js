@@ -7,6 +7,7 @@ const Container = ({ title, children }) => (
   <div className={styles.container}>
     <Head>
       <title>{title}</title>
+      <link rel="manifest" href="/manifest.json" />
       <link rel="icon" href="/images/favicon.ico" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </Head>

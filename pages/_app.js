@@ -2,7 +2,8 @@ import { SWRConfig } from 'swr'
 import { ThemeProvider } from '@material-ui/core';
 import fetch from '../utils/fetchJson'
 
-// import '../public/styles/global.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import theme from '../theme';
 import GlobalStyles from '../components/GlobalStyles';
 

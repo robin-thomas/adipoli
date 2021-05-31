@@ -40,7 +40,7 @@ const Login = () => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout title="Login">
       <Box
         sx={{
           backgroundColor: 'background.default',
@@ -123,7 +123,7 @@ const Login = () => {
                 <Typography color="textSecondary" variant="body1">
                   Don&apos;t have an account?
                   {' '}
-                  <Link href="/register">Sign up</Link>
+                  <Link href="/register">Register</Link>
                 </Typography>
               </form>
             )}

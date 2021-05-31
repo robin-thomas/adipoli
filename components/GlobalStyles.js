@@ -10,8 +10,8 @@ const useStyles = makeStyles(() => createStyles({
     html: {
       '-webkit-font-smoothing': 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
-      height: '100%',
-      width: '100%'
+      height: '100vh',
+      width: '100vw'
     },
     body: {
       backgroundColor: '#f4f6f8',
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => createStyles({
       width: '100%'
     },
     a: {
-      textDecoration: 'none'
+      textDecoration: 'none !important'
     },
     '#root': {
       height: '100%',

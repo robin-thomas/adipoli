@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import Card from '../components/card';
-import Container from '../components/container';
+import MainLayout from '../components/MainLayout';
 import useUser from '../components/lib/useUser';
 
 const Wallet = () => {
@@ -12,11 +12,11 @@ const Wallet = () => {
   }
 
   return (
-    <Container title="Adipoli | Wallet">
+    <MainLayout title="Adipoli | Wallet">
       <h1 className="title">
         Wall<span>et</span>
       </h1>
-    </Container>
+    </MainLayout>
   )
 };
 

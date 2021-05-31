@@ -50,7 +50,7 @@ const Register = () => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout title="Register">
       <Box
         sx={{
           backgroundColor: 'background.default',

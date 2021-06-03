@@ -7,7 +7,7 @@ import styles from './index.module.css';
 
 const Index = () => (
   <MainLayout title="Home">
-    <div class={styles.container}>
+    <div className={styles.container}>
       <p className={styles.description}>
         Get started by creating an{' '}
         <Link href="/register">

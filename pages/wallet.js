@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Card from '../components/card';
 import MainLayout from '../components/MainLayout';
 import useUser from '../components/lib/useUser';
+import CreditCard from '../components/credit-card';
 
 const Wallet = () => {
   const { user } = useUser({ redirectTo: '/login' })
@@ -13,9 +14,7 @@ const Wallet = () => {
 
   return (
     <MainLayout title="Adipoli | Wallet">
-      <h1 className="title">
-        Wall<span>et</span>
-      </h1>
+      <CreditCard />
     </MainLayout>
   )
 };

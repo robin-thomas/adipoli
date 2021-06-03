@@ -23,8 +23,10 @@
     "mongodb": "^3.6.9",
     "next": "^10.0.0",
     "next-iron-session": "^4.1.13",
+    "payment": "^2.4.3",
     "react": "17.0.1",
     "react-bootstrap": "^1.6.0",
+    "react-credit-cards": "^0.8.3",
     "react-dom": "17.0.1",
     "swr": "^0.5.6",
     "yup": "^0.32.9"

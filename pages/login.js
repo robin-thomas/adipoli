@@ -42,7 +42,6 @@ const Login = () => {
     <MainLayout title="Login">
       <Box
         sx={{
-          backgroundColor: 'background.default',
           display: 'flex',
           flexDirection: 'column',
           height: '100%',

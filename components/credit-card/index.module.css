@@ -1,0 +1,22 @@
+.h1,
+.card {
+  font-family: 'Raleway' !important;
+}
+
+.card {
+  padding: 25px 15px;
+  outline: none;
+  border-radius: 1em;
+  border: 1px solid #5664d2;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.card label {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #5664d2 !important;
+}
+
+.card input:hover {
+  cursor: pointer !important;
+}

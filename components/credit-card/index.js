@@ -1,74 +1,79 @@
-import { useState } from "react";
-import Card from "react-credit-cards";
+import { useState } from 'react';
+import Card from 'react-credit-cards';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Row, Col } from 'react-bootstrap';
 import {
   Alert,
   Box,
   Button,
   Container,
+  Divider,
+  InputAdornment,
   TextField,
 } from '@material-ui/core';
 
-import {
-  formatCreditCardNumber,
-  formatCVC,
-  formatExpirationDate,
-  formatFormData
-} from "./utils";
-import WalletUtil from '../../utils/rapyd/wallet';
+import fetchJson from '../../utils/fetchJson';
 
-import "react-credit-cards/es/styles-compiled.css";
+import Amount from './amount';
+import Number from './number';
+import Name from './name';
+import Expiry from './expiry';
+import CVV from './cvv';
+import Issuer from './issuer';
 
-const CreditCard  = ({ name, walletId, amount }) => {
-  const onNumberChange = (e, handleChange) => {
-    e.target.value = formatCreditCardNumber(e.target.value)
-    handleChange(e);
-  }
+import styles from './index.module.css';
 
-  const onExpiryChange = (e, handleChange) => {
-    e.target.value = formatExpirationDate(e.target.value);
-    handleChange(e);
-  }
+const CreditCard = ({ name, walletId, amount }) => {
+  const [issuer, setIssuer] = useState('visa');
 
-  const onCVVChange = (e, handleChange) => {
-    e.target.value = formatCVC(e.target.value);
-    handleChange(e);
-  }
+  const getCardType = (issuer) => {
+    switch (issuer) {
+      case 'amex':
+      case 'visa':
+        return `in_${issuer}_card`;
+    }
+  };
 
   const onSubmit = async (values, setStatus) => {
     setStatus(null);
 
-    const fields = {...values};
+    const { name, number, expiry, cvv } = values;
+    const fields = { name, number, expiry, cvv };
     fields.expiration_month = fields.expiry.split('/')[0];
     fields.expiration_year = fields.expiry.split('/')[1];
     delete fields.expiry;
 
-    const data = {
-      amount,
+    const type = getCardType(issuer);
+
+    const body = {
+      amount: parseInt(values.amount),
       walletId,
       card: {
+        type,
         fields,
       },
     };
 
     try {
-      await WalletUtil.topUp(data);
+      const resp = await fetchJson('/api/topup', { method: 'POST', body });
     } catch (err) {
       setStatus(err.data.error ?? 'Failed to topup wallet!');
     }
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="mb">
       <Formik
         initialValues={{
+          amount: '999',
           number: '4111 1111 1111 1111',
-          name: name || '',
+          name: 'John Doe',
           expiry: '11/11',
-          cvv: '111'
+          cvv: '111',
         }}
         validationSchema={Yup.object().shape({
+          amount: Yup.number().min(0).max(999).required('Amount is required'),
           number: Yup.string().min(19).max(21).required('Number is required'),
           name: Yup.string().max(100).required('Name is required'),
           expiry: Yup.string().min(5).max(5).required('Expiry is required'),
@@ -84,95 +89,67 @@ const CreditCard  = ({ name, walletId, amount }) => {
           isSubmitting,
           touched,
           values,
-          status
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <Card
-              number={values.number}
-              name={values.name}
-              expiry={values.expiry}
-              cvc={values.cvv}
-            />
-            {!!status && <Alert severity="error">{status}</Alert>}
-            <TextField
-              error={Boolean(touched.number && errors.number)}
-              fullWidth
-              helperText={touched.number && errors.number}
-              label="Number"
-              margin="normal"
-              name="number"
-              type="tel"
-              onBlur={handleBlur}
-              onChange={(e) => onNumberChange(e, handleChange)}
-              value={values.number}
-              variant="outlined"
-              disabled={isSubmitting}
-            />
-            <TextField
-              error={Boolean(touched.name && errors.name)}
-              fullWidth
-              helperText={touched.name && errors.name}
-              label="Name"
-              margin="normal"
-              name="name"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              type="text"
-              value={values.name}
-              variant="outlined"
-              disabled={isSubmitting}
-            />
-            <div className="row">
-              <div className="col-6">
-                <TextField
-                  error={Boolean(touched.expiry && errors.expiry)}
-                  fullWidth
-                  helperText={touched.expiry && errors.expiry}
-                  label="Expiry"
-                  margin="normal"
-                  name="expiry"
-                  onBlur={handleBlur}
-                  onChange={(e) => onExpiryChange(e, handleChange)}
-                  type="text"
-                  value={values.expiry}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-              </div>
-              <div className="col-6">
-                <TextField
-                  error={Boolean(touched.cvv && errors.cvv)}
-                  fullWidth
-                  helperText={touched.cvv && errors.cvv}
-                  label="CVV"
-                  margin="normal"
-                  name="cvv"
-                  onBlur={handleBlur}
-                  onChange={(e) => onCVVChange(e, handleChange)}
-                  type="text"
-                  value={values.cvv}
-                  variant="outlined"
-                  disabled={isSubmitting}
-                />
-              </div>
-            </div>
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                disabled={isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Pay
-              </Button>
-            </Box>
-          </form>
-        )}
+          status,
+        }) => {
+          const props = {
+            touched,
+            errors,
+            values,
+            handleBlur,
+            handleChange,
+            isSubmitting,
+          };
+
+          return (
+            <>
+              <Box sx={{ mb: 3 }}>
+                <h1 className={styles.h1}>Top Up Your Wallet</h1>
+              </Box>
+              <form onSubmit={handleSubmit} autoComplete="off">
+                {!!status && (
+                  <Box sx={{ mt: 2, mb: 2 }}>
+                    <Alert severity="error">{status}</Alert>
+                  </Box>
+                )}
+                <Row className={styles.card}>
+                  <Col md="6">
+                    <Box sx={{ mt: 3, mb: 2 }}>
+                      <Issuer issuer={issuer} />
+                    </Box>
+                    <Row>
+                      <Col md="8">
+                        <Amount {...props} />
+                      </Col>
+                    </Row>
+                    <Box>
+                      <Name {...props} />
+                    </Box>
+                  </Col>
+                  <Col md="6">
+                    <Expiry {...props} />
+                    <Number {...props} setIssuer={setIssuer} />
+                    <CVV {...props} />
+                  </Col>
+                </Row>
+                <Box sx={{ py: 2 }}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting || !values.amount}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    TopUp {values.amount ? `$${values.amount}` : ''}
+                  </Button>
+                </Box>
+              </form>
+            </>
+          );
+        }}
       </Formik>
     </Container>
   );
-}
+};
 
 export default CreditCard;

@@ -3,8 +3,8 @@ import { makeRequest } from './utils';
 const Wallet = {
   createWallet: async (params) => {
     const data = {
-      type: "person",
-      email: params?.email || "",
+      type: 'person',
+      email: params?.email || '',
       ewallet_reference_id: params?.email || Date.now().toString(),
     };
 
@@ -19,7 +19,7 @@ const Wallet = {
   transfer: async (params) => {
     const data = {
       amount: params.amount,
-      currency: "USD",
+      currency: 'USD',
       source_ewallet: params.sourceWalletId,
       destination_ewallet: params.destinationWalletId,
     };
@@ -35,14 +35,17 @@ const Wallet = {
   topUp: async (params) => {
     const data = {
       amount: params.amount,
-      currency: "USD",
+      currency: 'USD',
       payment_method: params.card,
       capture: true,
-      ewallets: [{
-        ewallet: params.walletId,
-        percentage: 100,
-      }],
+      ewallets: [
+        {
+          ewallet: params.walletId,
+          percentage: 100,
+        },
+      ],
     };
+    console.log(params);
 
     const method = 'post';
     const url = '/v1/payments';

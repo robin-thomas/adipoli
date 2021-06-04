@@ -8,14 +8,14 @@ const LayoutBg = styled('div')({
   filter: 'opacity(10%)',
   height: '100vh',
   width: '100vw',
-})
+});
 
 const LayoutRoot = styled('div')({
   position: 'absolute',
   top: '0',
   overflow: 'hidden',
   height: '100vh',
-  width: '100vw'
+  width: '100vw',
 });
 
 const LayoutHeader = styled('div')({
@@ -55,25 +55,40 @@ const LayoutFooter = styled('div')({
 const MainLayout = ({ title, children }) => (
   <>
     <Head>
-      <title>{process.env.NEXT_PUBLIC_APP_NAME} | {title}</title>
+      <title>
+        {process.env.NEXT_PUBLIC_APP_NAME} | {title}
+      </title>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Sacramento&family=Raleway:wght@500&display=swap"
+        rel="stylesheet"
+      />
     </Head>
     <>
       <LayoutBg />
       <LayoutRoot>
         <LayoutHeader>{process.env.NEXT_PUBLIC_APP_NAME}</LayoutHeader>
-        <LayoutContent>
-          {children}
-        </LayoutContent>
+        <LayoutContent>{children}</LayoutContent>
         <LayoutFooter>
           <div>
             <span className="ml-1 mr-1">&copy; 2021</span>
-            <a href="https://github.com/robin-thomas/adipoli" target="_blank" rel="noopener noreferrer">Robin Thomas</a>
+            <a
+              href="https://github.com/robin-thomas/adipoli"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Robin Thomas
+            </a>
           </div>
           <div className="ml-auto mr-1">
             <span className="mr-1">Powered by</span>
-            <a href="https://www.rapyd.net/" target="_blank" rel="noopener noreferrer">Rapyd</a>
+            <a
+              href="https://www.rapyd.net/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Rapyd
+            </a>
           </div>
         </LayoutFooter>
       </LayoutRoot>

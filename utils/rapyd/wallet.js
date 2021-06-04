@@ -45,13 +45,11 @@ const Wallet = {
         },
       ],
     };
-    console.log(params);
 
     const method = 'post';
     const url = '/v1/payments';
 
     const response = await makeRequest({ method, url, data });
-    console.log(response);
 
     return response.data?.status?.status === 'SUCCESS';
   },

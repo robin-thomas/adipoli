@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { useContext } from 'react';
+import Link from 'next/link';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -8,14 +9,17 @@ import {
   Container,
   Grid,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 
+import { DataContext } from '../components/utils/DataProvider';
 import MainLayout from '../components/MainLayout';
 import useUser from '../components/lib/useUser';
 import fetchJson from '../utils/fetchJson';
 
 const Login = () => {
+  const ctx = useContext(DataContext);
+
   const { user, mutateUser } = useUser({
     redirectTo: '/wallet',
     redirectIfFound: true,
@@ -31,12 +35,16 @@ const Login = () => {
     const body = { email, password };
 
     try {
-      const resp = await fetchJson('/api/session/login', { method: 'POST', body });
-      await mutateUser(resp);
+      const user = await fetchJson('/api/session/login', {
+        method: 'POST',
+        body,
+      });
+      ctx.setUser(user);
+      await mutateUser(user);
     } catch (err) {
       setStatus(err.data.error ?? 'Incorrect username or password!');
     }
-  }
+  };
 
   return (
     <MainLayout title="Login">
@@ -45,18 +53,21 @@ const Login = () => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <Container maxWidth="sm">
           <Formik
             initialValues={{
               email: 'demo@robinthomas.io',
-              password: 'password'
+              password: 'password',
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              email: Yup.string()
+                .email('Must be a valid email')
+                .max(255)
+                .required('Email is required'),
+              password: Yup.string().max(255).required('Password is required'),
             })}
             onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
           >
@@ -68,7 +79,7 @@ const Login = () => {
               isSubmitting,
               touched,
               values,
-              status
+              status,
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
@@ -119,8 +130,7 @@ const Login = () => {
                   </Button>
                 </Box>
                 <Typography color="textSecondary" variant="body1">
-                  Don&apos;t have an account?
-                  {' '}
+                  Don&apos;t have an account?{' '}
                   <Link href="/register">Register</Link>
                 </Typography>
               </form>
@@ -129,7 +139,7 @@ const Login = () => {
         </Container>
       </Box>
     </MainLayout>
-  )
+  );
 };
 
 export default Login;

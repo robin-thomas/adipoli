@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Card from 'react-credit-cards';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 
 import fetchJson from '../../utils/fetchJson';
+import { DataContext } from '../utils/DataProvider';
 
 import Amount from './amount';
 import Number from './number';
@@ -25,13 +26,16 @@ import Issuer from './issuer';
 import styles from './index.module.css';
 
 const CreditCard = ({ name, walletId, amount }) => {
+  const ctx = useContext(DataContext);
+
   const [issuer, setIssuer] = useState('visa');
 
   const getCardType = (issuer) => {
     switch (issuer) {
       case 'amex':
       case 'visa':
-        return `in_${issuer}_card`;
+      case 'mastercard':
+        return `us_${issuer}_card`;
     }
   };
 
@@ -40,6 +44,7 @@ const CreditCard = ({ name, walletId, amount }) => {
 
     const { name, number, expiry, cvv } = values;
     const fields = { name, number, expiry, cvv };
+    fields.number = fields.number.replace(/\s/g, '');
     fields.expiration_month = fields.expiry.split('/')[0];
     fields.expiration_year = fields.expiry.split('/')[1];
     delete fields.expiry;
@@ -48,7 +53,7 @@ const CreditCard = ({ name, walletId, amount }) => {
 
     const body = {
       amount: parseInt(values.amount),
-      walletId,
+      walletId: ctx?.user?.walletId,
       card: {
         type,
         fields,
@@ -57,8 +62,13 @@ const CreditCard = ({ name, walletId, amount }) => {
 
     try {
       const resp = await fetchJson('/api/topup', { method: 'POST', body });
+      setStatus({
+        success: true,
+        message: `Topped up $${values.amount} successfully!`,
+      });
     } catch (err) {
-      setStatus(err.data.error ?? 'Failed to topup wallet!');
+      const message = err.data.error ?? 'Failed to topup wallet!';
+      setStatus({ error: true, message });
     }
   };
 
@@ -69,7 +79,7 @@ const CreditCard = ({ name, walletId, amount }) => {
           amount: '999',
           number: '4111 1111 1111 1111',
           name: 'John Doe',
-          expiry: '11/11',
+          expiry: '12/23',
           cvv: '111',
         }}
         validationSchema={Yup.object().shape({
@@ -108,7 +118,9 @@ const CreditCard = ({ name, walletId, amount }) => {
               <form onSubmit={handleSubmit} autoComplete="off">
                 {!!status && (
                   <Box sx={{ mt: 2, mb: 2 }}>
-                    <Alert severity="error">{status}</Alert>
+                    <Alert severity={`${status.error ? 'error' : 'success'}`}>
+                      {status.message.toUpperCase()}
+                    </Alert>
                   </Box>
                 )}
                 <Row className={styles.card}>

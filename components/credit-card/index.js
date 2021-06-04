@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Card from "react-credit-cards";
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -14,12 +16,11 @@ import {
   formatExpirationDate,
   formatFormData
 } from "./utils";
+import WalletUtil from '../../utils/rapyd/wallet';
 
 import "react-credit-cards/es/styles-compiled.css";
 
-const CreditCard  = () => {
-  const [form, setForm] = useState(null);
-
+const CreditCard  = ({ name, walletId, amount }) => {
   const onNumberChange = (e, handleChange) => {
     e.target.value = formatCreditCardNumber(e.target.value)
     handleChange(e);
@@ -30,23 +31,32 @@ const CreditCard  = () => {
     handleChange(e);
   }
 
-  const onCVCChange = (e, handleChange) => {
+  const onCVVChange = (e, handleChange) => {
     e.target.value = formatCVC(e.target.value);
     handleChange(e);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = async (values, setStatus) => {
+    setStatus(null);
 
-    const _formData = [...e.target.elements]
-      .filter((d) => d.name)
-      .reduce((acc, d) => {
-        acc[d.name] = d.value;
-        return acc;
-      }, {});
+    const fields = {...values};
+    fields.expiration_month = fields.expiry.split('/')[0];
+    fields.expiration_year = fields.expiry.split('/')[1];
+    delete fields.expiry;
 
-    setFormData(_formData);
-    form.reset();
+    const data = {
+      amount,
+      walletId,
+      card: {
+        fields,
+      },
+    };
+
+    try {
+      await WalletUtil.topUp(data);
+    } catch (err) {
+      setStatus(err.data.error ?? 'Failed to topup wallet!');
+    }
   };
 
   return (
@@ -54,10 +64,16 @@ const CreditCard  = () => {
       <Formik
         initialValues={{
           number: '4111 1111 1111 1111',
+          name: name || '',
           expiry: '11/11',
-          name: 'Robin Thomas',
-          cvc: '111'
+          cvv: '111'
         }}
+        validationSchema={Yup.object().shape({
+          number: Yup.string().min(19).max(21).required('Number is required'),
+          name: Yup.string().max(100).required('Name is required'),
+          expiry: Yup.string().min(5).max(5).required('Expiry is required'),
+          cvv: Yup.number().min(100).max(9999).required('CVV is required'),
+        })}
         onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
       >
         {({
@@ -70,13 +86,14 @@ const CreditCard  = () => {
           values,
           status
         }) => (
-          <form ref={setForm} onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <Card
               number={values.number}
               name={values.name}
               expiry={values.expiry}
-              cvc={values.cvc}
+              cvc={values.cvv}
             />
+            {!!status && <Alert severity="error">{status}</Alert>}
             <TextField
               error={Boolean(touched.number && errors.number)}
               fullWidth
@@ -124,16 +141,16 @@ const CreditCard  = () => {
               </div>
               <div className="col-6">
                 <TextField
-                  error={Boolean(touched.cvc && errors.cvc)}
+                  error={Boolean(touched.cvv && errors.cvv)}
                   fullWidth
-                  helperText={touched.cvc && errors.cvc}
-                  label="CVC"
+                  helperText={touched.cvv && errors.cvv}
+                  label="CVV"
                   margin="normal"
-                  name="cvc"
+                  name="cvv"
                   onBlur={handleBlur}
-                  onChange={(e) => onCVCChange(e, handleChange)}
+                  onChange={(e) => onCVVChange(e, handleChange)}
                   type="text"
-                  value={values.cvc}
+                  value={values.cvv}
                   variant="outlined"
                   disabled={isSubmitting}
                 />

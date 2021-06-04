@@ -40,7 +40,7 @@ const Wallet = {
       capture: true,
       ewallets: [{
         ewallet: params.walletId,
-        percentage": 100
+        percentage: 100,
       }],
     };
 
@@ -48,6 +48,7 @@ const Wallet = {
     const url = '/v1/payments';
 
     const response = await makeRequest({ method, url, data });
+    console.log(response);
 
     return response.data?.status?.status === 'SUCCESS';
   },

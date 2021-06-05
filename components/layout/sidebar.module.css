@@ -17,6 +17,7 @@
 .logo {
   text-transform: capitalize;
   font-family: "Sacramento", cursive;
+  font-size: 3rem;
 }
 
 .logout {

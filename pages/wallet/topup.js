@@ -1,12 +1,12 @@
 import { Box } from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
 
-import MainLayout from '../../components/MainLayout';
+import Layout from '../../components/layout';
 import CreditCard from '../../components/credit-card';
 
 const Wallet = () => {
   return (
-    <MainLayout title="Adipoli | Wallet">
+    <Layout title="Top Up your wallet">
       <Box
         sx={{
           display: 'flex',
@@ -22,7 +22,7 @@ const Wallet = () => {
           </Col>
         </Row>
       </Box>
-    </MainLayout>
+    </Layout>
   );
 };
 

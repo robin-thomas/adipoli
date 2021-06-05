@@ -40,7 +40,12 @@ const Wallet = () => {
       <Row style={{ height: '100%' }}>
         <Col md="2" style={{ background: 'rgba(0,0,0,0.1)' }}>
           {Object.keys(nav).map((title) => (
-            <Card href={nav[title].href} title={title} icon={nav[title].icon} />
+            <Card
+              key={title}
+              href={nav[title].href}
+              title={title}
+              icon={nav[title].icon}
+            />
           ))}
         </Col>
         <Col md="8"></Col>

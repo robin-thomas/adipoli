@@ -1,6 +1,10 @@
+import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
-import { IconButton, Tooltip } from '@material-ui/core';
+import { Box, Button, IconButton, Tooltip } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import SubjectIcon from '@material-ui/icons/Subject';
+import { Row, Col } from 'react-bootstrap';
 
 import { DataContext } from '../utils/DataProvider';
 import useUser from '../lib/useUser';
@@ -37,6 +41,47 @@ const LogOut = () => {
   );
 };
 
+const SidebarButton = ({ name, title, href, icon }) => {
+  const SidebarIcon = icon;
+
+  const ctx = useContext(DataContext);
+
+  return (
+    <Row className="justify-content-center">
+      <Col md="auto">
+        <Link href={href}>
+          <Tooltip title={title} placement="right" arrow>
+            {ctx.active === name ? (
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{
+                  borderRadius: 30,
+                  padding: 10,
+                  marginBottom: 20,
+                }}
+              >
+                <SidebarIcon fontSize="large" color="white" />
+              </Button>
+            ) : (
+              <Button
+                style={{
+                  padding: 10,
+                  marginBottom: 20,
+                  color: 'white',
+                  borderRadius: 30,
+                }}
+              >
+                <SidebarIcon fontSize="large" color="white" />
+              </Button>
+            )}
+          </Tooltip>
+        </Link>
+      </Col>
+    </Row>
+  );
+};
+
 const SideBar = () => {
   const { user } = useUser();
 
@@ -50,9 +95,36 @@ const SideBar = () => {
     return null;
   }
 
+  const nav = {
+    wallet: {
+      name: 'wallet',
+      title: 'Wallet',
+      href: '/wallet',
+      icon: AccountBalanceWalletIcon,
+    },
+    walletTopup: {
+      name: 'walletTopup',
+      title: 'Top Up your wallet',
+      href: '/wallet/topup',
+      icon: AccountBalanceWalletIcon,
+    },
+    walletTransactions: {
+      name: 'walletTransactions',
+      title: 'Wallet Transactions',
+      href: '/wallet/transactions',
+      icon: SubjectIcon,
+    },
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>{process.env.NEXT_PUBLIC_APP_NAME}</div>
+      <Tooltip title={process.env.NEXT_PUBLIC_APP_NAME} placement="right" arrow>
+        <div className={styles.logo}>{process.env.NEXT_PUBLIC_APP_NAME[0]}</div>
+      </Tooltip>
+      <Box sx={{ mb: 8 }} />
+      {Object.keys(nav).map((title) => (
+        <SidebarButton key={title} {...nav[title]} />
+      ))}
       <LogOut />
     </div>
   );

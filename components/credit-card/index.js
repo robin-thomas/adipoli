@@ -129,7 +129,7 @@ const CreditCard = ({ name, walletId, amount }) => {
                       <Issuer issuer={issuer} />
                     </Box>
                     <Row>
-                      <Col md="8">
+                      <Col md="9">
                         <Amount {...props} />
                       </Col>
                     </Row>

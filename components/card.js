@@ -7,16 +7,13 @@ const Card = ({ title, icon, href }) => (
   <Link href={href}>
     <a className={styles.card}>
       <Box
+        className={styles.box}
         sx={{
           display: 'flex',
           height: '15%',
-          textAlign: 'center',
-          justifyContent: 'center',
           padding: '10px 20px',
         }}
-      >
-        {icon}
-      </Box>
+      ></Box>
       <h3>{title}</h3>
     </a>
   </Link>

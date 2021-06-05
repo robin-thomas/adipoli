@@ -129,7 +129,7 @@ const CreditCard = ({ name, walletId, amount }) => {
                       <Issuer issuer={issuer} />
                     </Box>
                     <Row>
-                      <Col md="9">
+                      <Col md="8">
                         <Amount {...props} />
                       </Col>
                     </Row>
@@ -143,16 +143,29 @@ const CreditCard = ({ name, walletId, amount }) => {
                     <CVV {...props} />
                   </Col>
                 </Row>
-                <Box sx={{ mt: 3, py: 2 }}>
+                <Box
+                  sx={{
+                    mt: 3,
+                    py: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Button
                     color="primary"
                     disabled={isSubmitting || !values.amount}
-                    fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
+                    style={{
+                      borderRadius: 50,
+                      boxShadow: '0 0 3em rgb(0,0,0,0.1)',
+                      paddingTop: '15px',
+                      paddingBottom: '15px',
+                    }}
                   >
-                    TopUp {values.amount ? `$${values.amount}` : ''}
+                    Top Up {values.amount ? `$${values.amount}` : ''}
                   </Button>
                 </Box>
               </form>

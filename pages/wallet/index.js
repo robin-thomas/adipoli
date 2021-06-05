@@ -37,39 +37,14 @@ const Wallet = () => {
 
   return (
     <MainLayout title="Adipoli | Wallet">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          justifyContent: 'center',
-          padding: '10px 20px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '15%',
-            textAlign: 'center',
-            justifyContent: 'center',
-            padding: '10px 20px',
-          }}
-        >
-          <h1>Now choose your wallet operation</h1>
-        </Box>
-        <Row className="justify-content-md-center">
+      <Row style={{ height: '100%' }}>
+        <Col md="2" style={{ background: 'rgba(0,0,0,0.1)' }}>
           {Object.keys(nav).map((title) => (
-            <Col md="auto" key={title}>
-              <Card
-                href={nav[title].href}
-                title={title}
-                icon={nav[title].icon}
-              />
-            </Col>
+            <Card href={nav[title].href} title={title} icon={nav[title].icon} />
           ))}
-        </Row>
-      </Box>
+        </Col>
+        <Col md="8"></Col>
+      </Row>
     </MainLayout>
   );
 };

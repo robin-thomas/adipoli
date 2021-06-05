@@ -13,7 +13,7 @@ const Wallet = () => {
           flexDirection: 'column',
           height: '100%',
           justifyContent: 'center',
-          padding: '10px 20px',
+          padding: '10px 50px',
         }}
       >
         <Row>

@@ -15,10 +15,12 @@ const useStyles = makeStyles(() =>
         width: '100vw',
       },
       body: {
-        backgroundColor: '#f4f6f8',
+        background: 'url("/images/bg.jpg")',
+        backgroundSize: 'cover',
         height: '100%',
         width: '100%',
         fontFamily: '"Raleway" !important',
+        userSelect: 'none',
       },
       a: {
         textDecoration: 'none !important',

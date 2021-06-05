@@ -21,7 +21,7 @@ const LayoutRoot = styled('div')({
 const LayoutHeader = styled('div')({
   textTransform: 'capitalize',
   width: '100%',
-  color: '#3c4b64',
+  color: 'rgb(245,245,247)',
   borderBottom: '1px solid #d8dbe0',
   display: 'flex',
   flex: '0 0 70px',
@@ -33,10 +33,12 @@ const LayoutHeader = styled('div')({
   fontSize: '47px',
   fontFamily: '"Sacramento", cursive',
   paddingLeft: '30px',
+  background: 'rgba(0,0,0,0.8)',
 });
 
 const LayoutContent = styled('div')({
   height: 'calc(100% - 120px)',
+  background: 'white',
 });
 
 const LayoutFooter = styled('div')({
@@ -65,7 +67,6 @@ const MainLayout = ({ title, children }) => (
       />
     </Head>
     <>
-      <LayoutBg />
       <LayoutRoot>
         <LayoutHeader>{process.env.NEXT_PUBLIC_APP_NAME}</LayoutHeader>
         <LayoutContent>{children}</LayoutContent>

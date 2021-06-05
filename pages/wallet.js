@@ -26,6 +26,7 @@ const Wallet = () => {
           flexDirection: 'column',
           height: '100%',
           justifyContent: 'center',
+          padding: '10px 20px',
         }}
       >
         <div className="row">

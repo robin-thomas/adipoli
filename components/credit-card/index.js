@@ -72,7 +72,7 @@ const CreditCard = ({ name, walletId, amount }) => {
   };
 
   return (
-    <Container maxWidth="mb">
+    <Container className={styles.container}>
       <Formik
         initialValues={{
           amount: '999',
@@ -111,8 +111,9 @@ const CreditCard = ({ name, walletId, amount }) => {
 
           return (
             <>
-              <Box sx={{ mb: 3 }}>
-                <h1 className={styles.h1}>Top Up Your Wallet</h1>
+              <Box sx={{ mb: 6 }}>
+                <h2 className={styles.title}>Top up your wallet</h2>
+                <hr />
               </Box>
               <form onSubmit={handleSubmit} autoComplete="off">
                 {!!status && (
@@ -124,11 +125,11 @@ const CreditCard = ({ name, walletId, amount }) => {
                 )}
                 <Row className={styles.card}>
                   <Col md="6">
-                    <Box sx={{ mt: 3, mb: 2 }}>
+                    <Box sx={{ mt: 0, mb: 2 }}>
                       <Issuer issuer={issuer} />
                     </Box>
                     <Row>
-                      <Col md="8">
+                      <Col md="9">
                         <Amount {...props} />
                       </Col>
                     </Row>

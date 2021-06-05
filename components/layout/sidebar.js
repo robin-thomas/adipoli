@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
@@ -11,10 +11,7 @@ import styles from './sidebar.module.css';
 const LogOut = () => {
   const ctx = useContext(DataContext);
 
-  const { mutateUser } = useUser({
-    redirectTo: '/',
-    redirectIfFound: true,
-  });
+  const { mutateUser } = useUser();
 
   const logout = async () => {
     if (window.confirm('Are you sure you want to log out?')) {
@@ -43,10 +40,20 @@ const LogOut = () => {
 const SideBar = () => {
   const { user } = useUser();
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(user && user?.isLoggedIn === true);
+  }, [user]);
+
+  if (!loggedIn) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.logo}>{process.env.NEXT_PUBLIC_APP_NAME}</div>
-      {user && user?.isLoggedIn === true && <LogOut />}
+      <LogOut />
     </div>
   );
 };

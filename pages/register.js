@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -10,11 +10,11 @@ import {
   FormHelperText,
   Grid,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import CryptoJS from 'crypto-js';
 
-import MainLayout from '../components/MainLayout';
+import Layout from '../components/layout';
 import useUser from '../components/lib/useUser';
 import fetchJson from '../utils/fetchJson';
 
@@ -40,7 +40,9 @@ const Register = () => {
       // Create the user.
       await fetchJson('/api/register', { method: 'POST', body });
     } catch (err) {
-      return setStatus(err.data.error ?? 'Failed to create an account! Please try again.');
+      return setStatus(
+        err.data.error ?? 'Failed to create an account! Please try again.'
+      );
     }
 
     try {
@@ -52,16 +54,16 @@ const Register = () => {
       console.log('error', err.data);
       return setStatus('Failed to create a session! Please try again.');
     }
-  }
+  };
 
   return (
-    <MainLayout title="Register">
+    <Layout title="Register">
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <Container maxWidth="sm">
@@ -70,16 +72,17 @@ const Register = () => {
               email: '',
               fullName: '',
               password: '',
-              policy: false
+              policy: false,
             }}
-            validationSchema={
-              Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(100).required('Email is required'),
-                fullName: Yup.string().max(100).required('Full name is required'),
-                password: Yup.string().max(32).required('Password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
-              })
-            }
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email('Must be a valid email')
+                .max(100)
+                .required('Email is required'),
+              fullName: Yup.string().max(100).required('Full name is required'),
+              password: Yup.string().max(32).required('Password is required'),
+              policy: Yup.boolean().oneOf([true], 'This field must be checked'),
+            })}
             onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
           >
             {({
@@ -90,14 +93,11 @@ const Register = () => {
               isSubmitting,
               touched,
               values,
-              status
+              status,
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  <Typography color="textPrimary" variant="h2">
                     Register
                   </Typography>
                 </Box>
@@ -148,7 +148,7 @@ const Register = () => {
                   sx={{
                     alignItems: 'center',
                     display: 'flex',
-                    ml: -1
+                    ml: -1,
                   }}
                 >
                   <Checkbox
@@ -162,9 +162,7 @@ const Register = () => {
                   </Typography>
                 </Box>
                 {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
+                  <FormHelperText error>{errors.policy}</FormHelperText>
                 )}
                 <Box sx={{ py: 2 }}>
                   <Button
@@ -178,20 +176,15 @@ const Register = () => {
                     Register
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link href="/login">Login</Link>
+                <Typography color="textSecondary" variant="body1">
+                  Have an account? <Link href="/login">Login</Link>
                 </Typography>
               </form>
             )}
           </Formik>
         </Container>
       </Box>
-    </MainLayout>
+    </Layout>
   );
 };
 

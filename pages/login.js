@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import { DataContext } from '../components/utils/DataProvider';
-import MainLayout from '../components/MainLayout';
+import Layout from '../components/layout';
 import useUser from '../components/lib/useUser';
 import fetchJson from '../utils/fetchJson';
 
@@ -47,7 +47,7 @@ const Login = () => {
   };
 
   return (
-    <MainLayout title="Login">
+    <Layout title="Login">
       <Box
         sx={{
           display: 'flex',
@@ -138,7 +138,7 @@ const Login = () => {
           </Formik>
         </Container>
       </Box>
-    </MainLayout>
+    </Layout>
   );
 };
 

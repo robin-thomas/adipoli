@@ -1,18 +1,20 @@
 import Link from 'next/link';
 
 import Card from '../components/card';
-import MainLayout from '../components/MainLayout';
+import Layout from '../components/layout';
 
 import styles from './index.module.css';
 
 const Index = () => (
-  <MainLayout title="Home">
+  <Layout title="Home">
     <div className={styles.container}>
+      <h1 className={styles.title}>{process.env.NEXT_PUBLIC_APP_NAME}</h1>
       <p className={styles.description}>
         Get started by creating an{' '}
         <Link href="/register">
           <a>account</a>
-        </Link>.
+        </Link>
+        .
       </p>
 
       <div className={styles.grid}>
@@ -28,7 +30,7 @@ const Index = () => (
         />
       </div>
     </div>
-  </MainLayout>
+  </Layout>
 );
 
 export default Index;

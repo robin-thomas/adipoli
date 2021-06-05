@@ -6,7 +6,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { Row, Col } from 'react-bootstrap';
 
 import Card from '../../components/card';
-import MainLayout from '../../components/MainLayout';
+import Layout from '../../components/layout';
 import useUser from '../../components/lib/useUser';
 import { DataContext } from '../../components/utils/DataProvider';
 
@@ -36,7 +36,7 @@ const Wallet = () => {
   };
 
   return (
-    <MainLayout title="Adipoli | Wallet">
+    <Layout title="Wallet">
       <Row style={{ height: '100%' }}>
         <Col md="2" style={{ background: 'rgba(0,0,0,0.1)' }}>
           {Object.keys(nav).map((title) => (
@@ -45,7 +45,7 @@ const Wallet = () => {
         </Col>
         <Col md="8"></Col>
       </Row>
-    </MainLayout>
+    </Layout>
   );
 };
 

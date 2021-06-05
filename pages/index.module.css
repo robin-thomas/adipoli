@@ -1,10 +1,17 @@
 .container {
-  padding: 15rem 0;
+  padding: 10rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.title {
+  text-transform: capitalize;
+  font-size: 10rem;
+  font-family: "Sacramento", cursive;
+  margin-bottom: 40px;
 }
 
 .description {

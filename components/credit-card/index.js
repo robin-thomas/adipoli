@@ -112,7 +112,7 @@ const CreditCard = ({ name, walletId, amount }) => {
           return (
             <>
               <Box sx={{ mb: 6 }}>
-                <h2 className={styles.title}>Top up your wallet</h2>
+                <h3 className={styles.title}>Top Up your wallet</h3>
                 <hr />
               </Box>
               <form onSubmit={handleSubmit} autoComplete="off">
@@ -143,7 +143,7 @@ const CreditCard = ({ name, walletId, amount }) => {
                     <CVV {...props} />
                   </Col>
                 </Row>
-                <Box sx={{ py: 2 }}>
+                <Box sx={{ mt: 3, py: 2 }}>
                   <Button
                     color="primary"
                     disabled={isSubmitting || !values.amount}

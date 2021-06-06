@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 import * as yup from 'yup';
 
-import withSession from '../../../utils/session'
+import withSession from '../../../utils/session';
 import AccountService from '../../../utils/db/account';
 
 export default withSession(async (req, res) => {
@@ -30,12 +30,17 @@ export default withSession(async (req, res) => {
       throw new Error('Incorrect username or password!');
     }
 
-    const user = { isLoggedIn: true, email, walletId: account.walletId };
+    const user = {
+      isLoggedIn: true,
+      email,
+      walletId: account.walletId,
+      name: account.fullName,
+    };
     req.session.set('user', user);
     await req.session.save();
 
     res.json(user);
   } catch (err) {
-    res.status(400).json({ statusCode:400, error: err.message });
+    res.status(400).json({ statusCode: 400, error: err.message });
   }
-})
+});

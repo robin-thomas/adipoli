@@ -81,7 +81,7 @@ const CreditCard = ({ name, walletId, amount }) => {
       initialValues={{
         amount: '999',
         number: '4111 1111 1111 1111',
-        name: 'John Doe',
+        name: ctx?.user?.name || 'John Doe',
         expiry: '12/23',
         cvv: '111',
       }}

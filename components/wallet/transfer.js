@@ -1,7 +1,13 @@
 import { useContext } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Box, InputAdornment, TextField } from '@material-ui/core';
+import {
+  Alert,
+  Button,
+  Box,
+  InputAdornment,
+  TextField,
+} from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
 
 import fetchJson from '../../utils/fetchJson';
@@ -33,7 +39,10 @@ const Transfer = () => {
     };
 
     try {
-      const resp = await fetchJson('/api/transfer', { method: 'POST', body });
+      const resp = await fetchJson('/api/wallet/transfer', {
+        method: 'POST',
+        body,
+      });
       setStatus({
         success: true,
         message: `Transferred $${values.amount} successfully!`,
@@ -75,11 +84,9 @@ const Transfer = () => {
         }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             {!!status && (
-              <Box sx={{ mt: -4, mb: 2 }}>
-                <Alert severity={`${status.error ? 'error' : 'success'}`}>
-                  {status.message.toUpperCase()}
-                </Alert>
-              </Box>
+              <Alert severity={`${status.error ? 'error' : 'success'}`}>
+                {status.message.toUpperCase()}
+              </Alert>
             )}
             <Row className={styles.card}>
               <Col md="5">
@@ -128,7 +135,7 @@ const Transfer = () => {
             />
             <Box
               sx={{
-                mt: 3,
+                mt: 2,
                 py: 2,
               }}
             >
@@ -140,8 +147,6 @@ const Transfer = () => {
                 variant="contained"
                 style={{
                   boxShadow: '0 0 3em rgb(0,0,0,0.1)',
-                  paddingTop: '15px',
-                  paddingBottom: '15px',
                 }}
               >
                 Transfer {values.amount ? `$${values.amount}` : ''}

@@ -28,12 +28,14 @@ const Wallet = () => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          padding: '25px 0',
+          padding: '15px 0',
         }}
       >
         <Row>
           <Col md="4">
-            <TopUpTransfer />
+            <Box sx={{ mt: 1 }}>
+              <TopUpTransfer />
+            </Box>
           </Col>
           <Col md="7" className="mx-auto">
             <Transactions />

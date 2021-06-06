@@ -125,7 +125,7 @@ const Transactions = () => {
           </Button>
         </Col>
       </Row>
-      <hr />
+      <hr className={styles.hr} />
       <Scrollbars autoHide renderThumbHorizontal={() => <div></div>}>
         {transactions.map((transaction) => (
           <Transaction key={transaction.id} {...transaction} />

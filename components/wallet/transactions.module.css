@@ -5,6 +5,10 @@
   letter-spacing: 0.02857em;
   text-transform: uppercase;
   color: #6b778c;
+}
+
+.hr {
+  margin-top: 10px !important;
   margin-bottom: 10px !important;
 }
 

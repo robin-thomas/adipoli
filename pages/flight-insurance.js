@@ -1,23 +1,23 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 import Card from '../components/card';
-import MainLayout from '../components/MainLayout';
+import Layout from '../components/layout';
 import useUser from '../components/lib/useUser';
 
 const FlightInsurance = () => {
-  const { user } = useUser({ redirectTo: '/login' })
+  const { user } = useUser({ redirectTo: '/login' });
 
   if (!user || user.isLoggedIn === false) {
     return null;
   }
 
   return (
-    <MainLayout title="Flight Insurance">
+    <Layout title="Flight Insurance">
       <h1 className="title">
         Flight <span>Insurance</span>
       </h1>
-    </MainLayout>
-  )
+    </Layout>
+  );
 };
 
 export default FlightInsurance;

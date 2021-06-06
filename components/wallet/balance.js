@@ -29,7 +29,9 @@ const Balance = () => {
   return (
     <Box sx={{ pt: 5, pb: 5 }}>
       <h1>${balance?.toLocaleString()}</h1>
-      <p>Total balance in USD</p>
+      <p>
+        Total balance in <b>USD</b>
+      </p>
     </Box>
   );
 };

@@ -4,6 +4,7 @@ import { Box, Button, IconButton, Tooltip } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import SubjectIcon from '@material-ui/icons/Subject';
+import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import { Row, Col } from 'react-bootstrap';
 
 import { DataContext } from '../utils/DataProvider';
@@ -46,9 +47,11 @@ const SidebarButton = ({ name, title, href, icon }) => {
 
   const ctx = useContext(DataContext);
 
+  const onClick = () => ctx.setActive(name);
+
   return (
     <Row className="justify-content-center">
-      <Col md="auto">
+      <Col md="auto" onClick={onClick}>
         <Link href={href}>
           <Tooltip title={title} placement="right" arrow>
             {ctx.active === name ? (
@@ -64,14 +67,7 @@ const SidebarButton = ({ name, title, href, icon }) => {
                 <SidebarIcon fontSize="large" color="white" />
               </Button>
             ) : (
-              <Button
-                style={{
-                  padding: 10,
-                  marginBottom: 20,
-                  color: 'white',
-                  borderRadius: 30,
-                }}
-              >
+              <Button className={styles.inActive}>
                 <SidebarIcon fontSize="large" color="white" />
               </Button>
             )}
@@ -101,6 +97,12 @@ const SideBar = () => {
       title: 'Wallet',
       href: '/wallet',
       icon: AccountBalanceWalletIcon,
+    },
+    FlightInsurance: {
+      name: 'flight-insurance',
+      title: 'Flight Insurance',
+      href: '/flight-insurance',
+      icon: FlightTakeoffIcon,
     },
   };
 

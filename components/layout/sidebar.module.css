@@ -25,3 +25,14 @@
   bottom: 30px;
   margin-left: 20px;
 }
+
+.inActive {
+  padding: 10px !important;
+  margin-bottom: 20px !important;
+  color: white !important;
+  border-radius: 30px !important;
+  transition: all 0.4s !important;
+}
+.inActive:hover {
+  background: #ff99bb !important
+}

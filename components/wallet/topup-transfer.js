@@ -20,7 +20,7 @@ import { DataContext } from '../utils/DataProvider';
 
 import TopUp from './topup';
 
-import styles from './index.module.css';
+import styles from './topup-transfer.module.css';
 
 const TabPanel = ({ children, value, index }) => (
   <div role="tabpanel" hidden={value !== index}>

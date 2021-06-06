@@ -16,6 +16,23 @@ const Wallet = {
     return response.data.id;
   },
 
+  getBalance: async (walletId) => {
+    const method = 'get';
+    const url = `/v1/user/${walletId}/accounts`;
+
+    const response = await makeRequest({ method, url, data: null });
+
+    if (response?.status?.status === 'SUCCESS') {
+      const balance = response.data
+        .filter((e) => e.currency === 'USD')
+        .map((e) => e.balance);
+
+      return balance.length === 1 ? balance[0] : 0;
+    }
+
+    throw new Error(response.status.error_code ?? 'Failed');
+  },
+
   transfer: async (params) => {
     const data = {
       amount: params.amount,

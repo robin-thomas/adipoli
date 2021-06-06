@@ -36,7 +36,7 @@ const Expiry = ({
       disabled={isSubmitting}
       InputProps={{
         disableUnderline: true,
-        style: { fontSize: 30, fontFamily: 'Raleway', color: 'white' },
+        style: { fontSize: 25, fontFamily: 'Raleway', color: 'white' },
       }}
     />
   );

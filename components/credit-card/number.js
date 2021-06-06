@@ -51,7 +51,7 @@ const Number = ({
       disabled={isSubmitting}
       InputProps={{
         disableUnderline: true,
-        style: { fontSize: 28, fontFamily: 'Raleway', color: 'white' },
+        style: { fontSize: 22, fontFamily: 'Raleway', color: 'white' },
       }}
     />
   );

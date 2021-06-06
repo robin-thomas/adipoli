@@ -20,7 +20,7 @@ const Name = ({
     value={values.name}
     disabled={isSubmitting}
     inputProps={{
-      style: { fontSize: 30, fontFamily: 'Raleway', color: 'white' },
+      style: { fontSize: 23, fontFamily: 'Raleway', color: 'white' },
     }}
     InputProps={{
       disableUnderline: true,

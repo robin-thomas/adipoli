@@ -72,108 +72,102 @@ const CreditCard = ({ name, walletId, amount }) => {
   };
 
   return (
-    <Container className={styles.container}>
-      <Formik
-        initialValues={{
-          amount: '999',
-          number: '4111 1111 1111 1111',
-          name: 'John Doe',
-          expiry: '12/23',
-          cvv: '111',
-        }}
-        validationSchema={Yup.object().shape({
-          amount: Yup.number().min(0).max(999).required('Amount is required'),
-          number: Yup.string().min(19).max(21).required('Number is required'),
-          name: Yup.string().max(100).required('Name is required'),
-          expiry: Yup.string().min(5).max(5).required('Expiry is required'),
-          cvv: Yup.number().min(100).max(9999).required('CVV is required'),
-        })}
-        onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
-      >
-        {({
+    <Formik
+      initialValues={{
+        amount: '999',
+        number: '4111 1111 1111 1111',
+        name: 'John Doe',
+        expiry: '12/23',
+        cvv: '111',
+      }}
+      validationSchema={Yup.object().shape({
+        amount: Yup.number().min(0).max(999).required('Amount is required'),
+        number: Yup.string().min(19).max(21).required('Number is required'),
+        name: Yup.string().max(100).required('Name is required'),
+        expiry: Yup.string().min(5).max(5).required('Expiry is required'),
+        cvv: Yup.number().min(100).max(9999).required('CVV is required'),
+      })}
+      onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
+    >
+      {({
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+        touched,
+        values,
+        status,
+      }) => {
+        const props = {
+          touched,
           errors,
+          values,
           handleBlur,
           handleChange,
-          handleSubmit,
           isSubmitting,
-          touched,
-          values,
-          status,
-        }) => {
-          const props = {
-            touched,
-            errors,
-            values,
-            handleBlur,
-            handleChange,
-            isSubmitting,
-          };
+        };
 
-          return (
-            <>
-              <Box sx={{ mb: 6 }}>
-                <h3 className={styles.title}>Top Up your wallet</h3>
-                <hr />
+        return (
+          <form onSubmit={handleSubmit} autoComplete="off">
+            {!!status && (
+              <Box sx={{ mt: 2, mb: 2 }}>
+                <Alert severity={`${status.error ? 'error' : 'success'}`}>
+                  {status.message.toUpperCase()}
+                </Alert>
               </Box>
-              <form onSubmit={handleSubmit} autoComplete="off">
-                {!!status && (
-                  <Box sx={{ mt: 2, mb: 2 }}>
-                    <Alert severity={`${status.error ? 'error' : 'success'}`}>
-                      {status.message.toUpperCase()}
-                    </Alert>
-                  </Box>
-                )}
-                <Row className={styles.card}>
-                  <Col md="6">
-                    <Box sx={{ mt: 0, mb: 2 }}>
-                      <Issuer issuer={issuer} />
-                    </Box>
-                    <Row>
-                      <Col md="9">
-                        <Amount {...props} />
-                      </Col>
-                    </Row>
-                    <Box>
-                      <Name {...props} />
-                    </Box>
-                  </Col>
-                  <Col md="6">
-                    <Expiry {...props} />
-                    <Number {...props} setIssuer={setIssuer} />
-                    <CVV {...props} />
+            )}
+            <Row className={styles.card}>
+              <Col md="6">
+                <Box sx={{ mt: 0, mb: 2 }}>
+                  <Issuer issuer={issuer} />
+                </Box>
+                <Row>
+                  <Col md="9">
+                    <Amount {...props} />
                   </Col>
                 </Row>
-                <Box
-                  sx={{
-                    mt: 3,
-                    py: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting || !values.amount}
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    style={{
-                      borderRadius: 50,
-                      boxShadow: '0 0 3em rgb(0,0,0,0.1)',
-                      paddingTop: '15px',
-                      paddingBottom: '15px',
-                    }}
-                  >
-                    Top Up {values.amount ? `$${values.amount}` : ''}
-                  </Button>
+                <Box>
+                  <Name {...props} />
                 </Box>
-              </form>
-            </>
-          );
-        }}
-      </Formik>
-    </Container>
+              </Col>
+              <Col md="6">
+                <Box sx={{ mt: -2, mb: 0 }}>
+                  <Expiry {...props} />
+                  <Number {...props} setIssuer={setIssuer} />
+                  <CVV {...props} />
+                </Box>
+              </Col>
+            </Row>
+            <Box
+              sx={{
+                mt: 3,
+                py: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Button
+                color="primary"
+                disabled={isSubmitting || !values.amount}
+                size="large"
+                type="submit"
+                variant="contained"
+                style={{
+                  borderRadius: 50,
+                  boxShadow: '0 0 3em rgb(0,0,0,0.1)',
+                  paddingTop: '15px',
+                  paddingBottom: '15px',
+                }}
+              >
+                Top Up {values.amount ? `$${values.amount}` : ''}
+              </Button>
+            </Box>
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 

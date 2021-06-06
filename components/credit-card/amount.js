@@ -34,7 +34,7 @@ const Amount = ({
       InputLabelProps={{ shrink: true }}
       inputProps={{
         style: {
-          fontSize: 55,
+          fontSize: 40,
           textAlign: 'right',
           fontFamily: 'Raleway',
           color: 'white',

@@ -42,7 +42,7 @@ const CVV = ({
       }}
       InputProps={{
         disableUnderline: true,
-        style: { fontSize: 30, fontFamily: 'Raleway' },
+        style: { fontSize: 25, fontFamily: 'Raleway' },
       }}
     />
   );

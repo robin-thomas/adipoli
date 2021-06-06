@@ -102,18 +102,6 @@ const SideBar = () => {
       href: '/wallet',
       icon: AccountBalanceWalletIcon,
     },
-    walletTopup: {
-      name: 'walletTopup',
-      title: 'Top Up your wallet',
-      href: '/wallet/topup',
-      icon: AccountBalanceWalletIcon,
-    },
-    walletTransactions: {
-      name: 'walletTransactions',
-      title: 'Wallet Transactions',
-      href: '/wallet/transactions',
-      icon: SubjectIcon,
-    },
   };
 
   return (

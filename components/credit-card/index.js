@@ -159,12 +159,7 @@ const CreditCard = ({ name, walletId, amount }) => {
                 size="large"
                 type="submit"
                 variant="contained"
-                style={{
-                  borderRadius: 50,
-                  boxShadow: '0 0 3em rgb(0,0,0,0.1)',
-                  paddingTop: '15px',
-                  paddingBottom: '15px',
-                }}
+                style={{ boxShadow: '0 0 3em rgb(0,0,0,0.1)' }}
               >
                 Top Up {values.amount ? `$${values.amount}` : ''}
               </Button>

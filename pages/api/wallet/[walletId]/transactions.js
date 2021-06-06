@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import WalletUtil from '../../../utils/rapyd/wallet';
+import WalletUtil from '../../../../utils/rapyd/wallet';
 
 async function handler(req, res) {
   if (req.method === 'GET') {
@@ -15,9 +15,10 @@ async function handler(req, res) {
         throw new Error('Required fields missing or invalid in request');
       }
 
-      const balance = await WalletUtil.getBalance(req.query.walletId);
+      const resp = await WalletUtil.getTransactions(req.query.walletId);
+      const transactions = resp.reverse();
 
-      res.status(200).json({ statusCode: 200, success: true, balance });
+      res.status(200).json({ statusCode: 200, success: true, transactions });
     } catch (err) {
       console.error(err);
       res.status(400).json({ statusCode: 400, error: err.message });

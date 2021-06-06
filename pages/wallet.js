@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import Layout from '../components/layout';
 import Balance from '../components/wallet/balance';
 import TopUpTransfer from '../components/wallet/topup-transfer';
+import Transactions from '../components/wallet/transactions';
 import { DataContext } from '../components/utils/DataProvider';
 import useUser from '../components/lib/useUser';
 
@@ -33,6 +34,9 @@ const Wallet = () => {
         <Row>
           <Col md="4">
             <TopUpTransfer />
+          </Col>
+          <Col md="7" className="mx-auto">
+            <Transactions />
           </Col>
         </Row>
       </Box>

@@ -27,7 +27,7 @@ const Balance = () => {
   }, [ctx.user, ctx.toppedUp]);
 
   return (
-    <Box sx={{ pt: 5, pb: 5 }}>
+    <Box sx={{ pt: 5, pb: 0 }}>
       <h1>${balance?.toLocaleString()}</h1>
       <p>
         Total balance in <b>USD</b>

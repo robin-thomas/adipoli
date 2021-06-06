@@ -70,6 +70,19 @@ const Wallet = {
 
     return response.data?.status?.status === 'SUCCESS';
   },
+
+  getTransactions: async (walletId) => {
+    const method = 'get';
+    const url = `/v1/user/${walletId}/transactions`;
+
+    const response = await makeRequest({ method, url, data: null });
+
+    if (response?.status?.status === 'SUCCESS') {
+      return response.data;
+    }
+
+    throw new Error(response.status.error_code ?? 'Failed');
+  },
 };
 
 export default Wallet;

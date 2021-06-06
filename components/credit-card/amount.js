@@ -32,6 +32,7 @@ const Amount = ({
       value={values.amount}
       disabled={isSubmitting}
       InputLabelProps={{ shrink: true }}
+      inputRef={(input) => input && input.focus()}
       inputProps={{
         style: {
           fontSize: 40,

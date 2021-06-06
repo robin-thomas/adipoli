@@ -54,7 +54,7 @@ const AutoDebit = () => {
             arrow
             title="If your wallet balance falls below $100, it shall be topped up automatically"
           >
-            <HelpOutlineIcon style={{ marginTop: -15 }} />
+            <HelpOutlineIcon fontSize="small" style={{ marginTop: -15 }} />
           </Tooltip>
         </Col>
       </Row>

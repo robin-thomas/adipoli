@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { fromUnixTime, format } from 'date-fns';
@@ -79,6 +79,24 @@ const Transactions = () => {
 
   const ctx = useContext(DataContext);
 
+  const download = (e) => {
+    e.preventDefault();
+
+    const header = Object.keys(transactions[0]).join(',') + '\n';
+    const data = transactions.reduce(
+      (p, c) => p + Object.values(c).join(',') + '\n',
+      ''
+    );
+
+    const blob = new Blob([header + data], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = window.URL.createObjectURL(blob);
+    a.download = `${process.env.NEXT_PUBLIC_APP_NAME}_${Date.now()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   useEffect(() => {
     const fn = async () => {
       try {
@@ -95,7 +113,18 @@ const Transactions = () => {
 
   return (
     <>
-      <div className={styles.title}>Recent Transactions</div>
+      <Row>
+        <Col className={styles.title}>Recent Transactions</Col>
+        <Col md="auto" className="ml-auto">
+          <Button
+            size="large"
+            disabled={transactions.length === 0}
+            onClick={download}
+          >
+            + Export CSV
+          </Button>
+        </Col>
+      </Row>
       <hr />
       <Scrollbars autoHide renderThumbHorizontal={() => <div></div>}>
         {transactions.map((transaction) => (

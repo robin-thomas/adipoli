@@ -8,12 +8,16 @@ import {
   Button,
   Container,
   Divider,
+  FormControlLabel,
   InputAdornment,
+  Switch,
   Tab,
   Tabs,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
@@ -29,6 +33,35 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
+const AutoDebit = () => {
+  const [checked, setChecked] = useState(false);
+
+  const onChange = (e) => setChecked((checked) => !checked);
+
+  return (
+    <>
+      <Row className="align-items-center">
+        <Col md="auto">
+          <FormControlLabel
+            value="end"
+            control={<Switch checked={checked} onChange={onChange} />}
+            label="Auto Debit"
+            labelPlacement="end"
+          />
+        </Col>
+        <Col md="auto">
+          <Tooltip
+            arrow
+            title="If your wallet balance falls below $100, it shall be topped up automatically"
+          >
+            <HelpOutlineIcon style={{ marginTop: -15 }} />
+          </Tooltip>
+        </Col>
+      </Row>
+    </>
+  );
+};
+
 const TopUpTransfer = ({ name, walletId }) => {
   const [value, setValue] = useState(0);
 
@@ -43,6 +76,11 @@ const TopUpTransfer = ({ name, walletId }) => {
         <Tooltip title="Transfer your wallet funds to another">
           <Tab label="Transfer" />
         </Tooltip>
+        <Tooltip title="Settings" className="ml-auto" arrow>
+          <Button onClick={() => handleChange(null, 2)}>
+            <SettingsIcon />
+          </Button>
+        </Tooltip>
       </Tabs>
       <Box p={3} />
       <TabPanel value={value} index={0}>
@@ -50,6 +88,9 @@ const TopUpTransfer = ({ name, walletId }) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Transfer />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <AutoDebit />
       </TabPanel>
     </Container>
   );

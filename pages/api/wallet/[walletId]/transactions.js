@@ -15,8 +15,7 @@ async function handler(req, res) {
         throw new Error('Required fields missing or invalid in request');
       }
 
-      const resp = await WalletUtil.getTransactions(req.query.walletId);
-      const transactions = resp.reverse();
+      const transactions = await WalletUtil.getTransactions(req.query.walletId);
 
       res.status(200).json({ statusCode: 200, success: true, transactions });
     } catch (err) {

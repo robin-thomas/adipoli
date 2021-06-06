@@ -19,6 +19,7 @@ import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
 
 import TopUp from './topup';
+import Transfer from './transfer';
 
 import styles from './topup-transfer.module.css';
 
@@ -28,7 +29,7 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
-const TopUpTransfer = ({ name, walletId, amount }) => {
+const TopUpTransfer = ({ name, walletId }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (e, newValue) => setValue(newValue);
@@ -45,10 +46,10 @@ const TopUpTransfer = ({ name, walletId, amount }) => {
       </Tabs>
       <Box p={3} />
       <TabPanel value={value} index={0}>
-        <TopUp name={name} walletId={walletId} amount={amount} />
+        <TopUp />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Transfer
+        <Transfer />
       </TabPanel>
     </Container>
   );

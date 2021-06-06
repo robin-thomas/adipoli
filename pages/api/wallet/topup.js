@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
-import AccountUtil from '../../utils/db/account';
-import WalletUtil from '../../utils/rapyd/wallet';
+import AccountUtil from '../../../utils/db/account';
+import WalletUtil from '../../../utils/rapyd/wallet';
 
 async function handler(req, res) {
   if (req.method === 'POST') {

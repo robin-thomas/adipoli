@@ -60,7 +60,10 @@ const CreditCard = ({ name, walletId, amount }) => {
     };
 
     try {
-      const resp = await fetchJson('/api/topup', { method: 'POST', body });
+      const resp = await fetchJson('/api/wallet/topup', {
+        method: 'POST',
+        body,
+      });
       setStatus({
         success: true,
         message: `Topped up $${values.amount} successfully!`,

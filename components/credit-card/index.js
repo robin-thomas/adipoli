@@ -65,6 +65,8 @@ const CreditCard = ({ name, walletId, amount }) => {
         success: true,
         message: `Topped up $${values.amount} successfully!`,
       });
+
+      ctx.setToppedUp((p) => p + 1);
     } catch (err) {
       const message = err.data.error ?? 'Failed to topup wallet!';
       setStatus({ error: true, message });
@@ -111,7 +113,7 @@ const CreditCard = ({ name, walletId, amount }) => {
         return (
           <form onSubmit={handleSubmit} autoComplete="off">
             {!!status && (
-              <Box sx={{ mt: 2, mb: 2 }}>
+              <Box sx={{ mt: -4, mb: 2 }}>
                 <Alert severity={`${status.error ? 'error' : 'success'}`}>
                   {status.message.toUpperCase()}
                 </Alert>

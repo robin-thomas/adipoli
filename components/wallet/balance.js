@@ -24,7 +24,7 @@ const Balance = () => {
     if (ctx.user?.walletId) {
       fn();
     }
-  }, [ctx.user]);
+  }, [ctx.user, ctx.toppedUp]);
 
   return (
     <Box sx={{ pt: 5, pb: 5 }}>

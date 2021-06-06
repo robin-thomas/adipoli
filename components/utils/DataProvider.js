@@ -5,6 +5,7 @@ const DataContext = createContext();
 const DataProvider = (props) => {
   const [user, setUser] = useState(null);
   const [active, setActive] = useState('wallet');
+  const [toppedUp, setToppedUp] = useState(0);
 
   return (
     <DataContext.Provider
@@ -13,6 +14,8 @@ const DataProvider = (props) => {
         setUser,
         active,
         setActive,
+        toppedUp,
+        setToppedUp,
       }}
     >
       {props.children}

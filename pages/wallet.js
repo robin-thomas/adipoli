@@ -1,46 +1,36 @@
-import { useContext } from 'react';
 import { Box } from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
 
-import Layout from '../components/layout';
-import Balance from '../components/wallet/balance';
+import Page from '../components/page';
 import TopUpTransfer from '../components/wallet/topup-transfer';
 import Transactions from '../components/wallet/transactions';
-import { DataContext } from '../components/utils/DataProvider';
-import useUser from '../components/utils/useUser';
+
+import fetchJson from '../utils/fetchJson';
 
 const Wallet = () => {
-  const ctx = useContext(DataContext);
-
-  const { user } = useUser({ redirectTo: '/login' });
-
-  if (!user || user.isLoggedIn === false) {
-    return null;
-  }
+  const fetcher = async (setter, walletId) => {
+    try {
+      const url = `/api/wallet/${walletId}`;
+      const resp = await fetchJson(url, { method: 'GET' });
+      setter(resp.balance);
+    } catch (err) {
+      // TODO.
+    }
+  };
 
   return (
-    <Layout title="Wallet">
-      <Balance />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          padding: '15px 0',
-        }}
-      >
-        <Row>
-          <Col md="4">
-            <Box sx={{ mt: 1 }}>
-              <TopUpTransfer />
-            </Box>
-          </Col>
-          <Col md="7" className="mx-auto">
-            <Transactions />
-          </Col>
-        </Row>
-      </Box>
-    </Layout>
+    <Page title="Wallet" fetcher={fetcher}>
+      <Row>
+        <Col md="4">
+          <Box sx={{ mt: 1 }}>
+            <TopUpTransfer />
+          </Box>
+        </Col>
+        <Col md="7" className="mx-auto">
+          <Transactions />
+        </Col>
+      </Row>
+    </Page>
   );
 };
 

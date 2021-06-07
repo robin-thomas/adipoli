@@ -1,16 +1,18 @@
 import DbUtil from './index';
 
 const Account = {
-  createAccount: async (body) => {
+  getCollection: async () => {
     const db = await DbUtil.getDB();
-    const collection = db.collection('account');
+    return db.collection('account');
+  },
+
+  createAccount: async (body) => {
+    const collection = await Account.getCollection();
     await collection.insertOne({ ...body, created: new Date() });
   },
 
   getAccountByEmail: async (email) => {
-    const db = await DbUtil.getDB();
-    const collection = db.collection('account');
-
+    const collection = await Account.getCollection();
     return await collection.findOne({ email });
   },
 };

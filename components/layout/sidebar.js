@@ -8,7 +8,7 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import { Row, Col } from 'react-bootstrap';
 
 import { DataContext } from '../utils/DataProvider';
-import useUser from '../lib/useUser';
+import useUser from '../utils/useUser';
 import fetchJson from '../../utils/fetchJson';
 
 import styles from './sidebar.module.css';

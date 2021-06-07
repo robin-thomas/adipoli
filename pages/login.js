@@ -14,7 +14,7 @@ import {
 
 import { DataContext } from '../components/utils/DataProvider';
 import Layout from '../components/layout';
-import useUser from '../components/lib/useUser';
+import useUser from '../components/utils/useUser';
 import fetchJson from '../utils/fetchJson';
 
 const Login = () => {

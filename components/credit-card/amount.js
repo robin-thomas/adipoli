@@ -15,7 +15,7 @@ const Amount = ({
   isSubmitting,
 }) => {
   const onChange = (e) => {
-    e.target.value = e.target.value.replace(/\D+/g, '').slice(0, 4);
+    e.target.value = e.target.value.replace(/\D+/g, '').slice(0, 3);
     handleChange(e);
   };
 
@@ -32,7 +32,7 @@ const Amount = ({
       value={values.amount}
       disabled={isSubmitting}
       InputLabelProps={{ shrink: true }}
-      inputRef={(input) => input && input.focus()}
+      // inputRef={(input) => input && input.focus()}
       inputProps={{
         style: {
           fontSize: 40,

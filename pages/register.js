@@ -15,7 +15,7 @@ import {
 import CryptoJS from 'crypto-js';
 
 import Layout from '../components/layout';
-import useUser from '../components/lib/useUser';
+import useUser from '../components/utils/useUser';
 import fetchJson from '../utils/fetchJson';
 
 const Register = () => {

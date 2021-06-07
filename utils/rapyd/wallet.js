@@ -83,6 +83,27 @@ const Wallet = {
 
     throw new Error(response.status.error_code ?? 'Failed');
   },
+
+  requestPayment: async (params) => {
+    const data = {
+      amount: params.amount,
+      country: 'US',
+      currency: 'USD',
+      ewallets: [
+        {
+          ewallet: params.walletId,
+          percentage: 100,
+        },
+      ],
+    };
+
+    const method = 'post';
+    const url = '/v1/checkout';
+
+    const response = await makeRequest({ method, url, data });
+
+    return response?.data?.redirect_url;
+  },
 };
 
 export default Wallet;

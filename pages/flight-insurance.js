@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
-import Card from '../components/card';
 import Layout from '../components/layout';
-import useUser from '../components/lib/useUser';
+import useUser from '../components/utils/useUser';
 
 const FlightInsurance = () => {
   const { user } = useUser({ redirectTo: '/login' });

@@ -101,7 +101,7 @@ const Transfer = () => {
                   margin="normal"
                   value={values.amount}
                   disabled={isSubmitting}
-                  inputRef={(input) => input && input.focus()}
+                  // inputRef={(input) => input && input.focus()}
                   inputProps={{
                     style: {
                       fontSize: 50,

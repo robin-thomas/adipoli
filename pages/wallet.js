@@ -7,7 +7,7 @@ import Balance from '../components/wallet/balance';
 import TopUpTransfer from '../components/wallet/topup-transfer';
 import Transactions from '../components/wallet/transactions';
 import { DataContext } from '../components/utils/DataProvider';
-import useUser from '../components/lib/useUser';
+import useUser from '../components/utils/useUser';
 
 const Wallet = () => {
   const ctx = useContext(DataContext);
@@ -16,8 +16,6 @@ const Wallet = () => {
 
   if (!user || user.isLoggedIn === false) {
     return null;
-  } else if (!ctx.user?.walletId) {
-    ctx.setUser(user);
   }
 
   return (

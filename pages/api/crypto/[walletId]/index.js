@@ -10,7 +10,7 @@ async function handler(req, res) {
       });
 
       try {
-        const isValid = await schema.isValid(req.query);
+        await schema.isValid(req.query);
       } catch (err) {
         throw new Error('Required fields missing or invalid in request');
       }

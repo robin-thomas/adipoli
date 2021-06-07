@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 
-import AccountUtil from '../../../utils/db/account';
 import WalletUtil from '../../../utils/rapyd/wallet';
 
 async function handler(req, res) {
@@ -16,7 +15,7 @@ async function handler(req, res) {
             fields: yup
               .object()
               .shape({
-                name: yup.string().required(),
+                expiry: yup.string().required(),
                 number: yup.string().min(19).max(21).required(),
                 name: yup.string().max(100).required(),
                 cvv: yup.number().min(100).max(9999).required(),
@@ -27,7 +26,7 @@ async function handler(req, res) {
       });
 
       try {
-        const isValid = await schema.isValid(req.body);
+        await schema.isValid(req.body);
       } catch (err) {
         throw new Error('Required fields missing or invalid in request');
       }

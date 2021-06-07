@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import {
   Alert,
   Box,
@@ -19,7 +19,6 @@ import * as Yup from 'yup';
 
 import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
-import Balance from '../amount/balance';
 import DollarAdornment from '../amount/dollarAdornment';
 
 const RequestPayment = () => {

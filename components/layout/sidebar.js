@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { Box, Button, IconButton, Tooltip } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import SubjectIcon from '@material-ui/icons/Subject';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import { Row, Col } from 'react-bootstrap';
 

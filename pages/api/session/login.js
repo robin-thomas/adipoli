@@ -12,7 +12,7 @@ export default withSession(async (req, res) => {
     });
 
     try {
-      const isValid = await schema.isValid(req.body);
+      await schema.isValid(req.body);
     } catch (err) {
       throw new Error('Required fields missing or invalid in request');
     }

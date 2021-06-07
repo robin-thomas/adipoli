@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Box, FormControlLabel, Switch, Tab, Tooltip } from '@material-ui/core';
+import { FormControlLabel, Switch, Tab, Tooltip } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 

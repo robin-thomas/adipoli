@@ -17,7 +17,7 @@ const Transactions = ({ fetcher }) => {
     if (ctx.user?.walletId) {
       fetcher(ctx.user.walletId, setTransactions);
     }
-  }, [ctx.user, ctx.toppedUp, setTransactions]);
+  }, [ctx.user, ctx.toppedUp, setTransactions, fetcher]);
 
   return (
     <>

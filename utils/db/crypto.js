@@ -8,7 +8,7 @@ const Account = {
 
   getBalance: async (walletId) => {
     const collection = await Account.getCollection();
-    const crupto = await collection.findOnce({ walletId });
+    const crypto = await collection.findOnce({ walletId });
     return crypto.balance;
   },
 

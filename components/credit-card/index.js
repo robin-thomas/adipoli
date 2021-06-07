@@ -2,15 +2,7 @@ import { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Row, Col } from 'react-bootstrap';
-import {
-  Alert,
-  Box,
-  Button,
-  Container,
-  Divider,
-  InputAdornment,
-  TextField,
-} from '@material-ui/core';
+import { Alert, Box, Button } from '@material-ui/core';
 
 import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
@@ -60,7 +52,7 @@ const CreditCard = ({ name, walletId, amount }) => {
     };
 
     try {
-      const resp = await fetchJson('/api/wallet/topup', {
+      await fetchJson('/api/wallet/topup', {
         method: 'POST',
         body,
       });

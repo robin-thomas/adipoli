@@ -39,7 +39,7 @@ const Transfer = () => {
     };
 
     try {
-      const resp = await fetchJson('/api/wallet/transfer', {
+      await fetchJson('/api/wallet/transfer', {
         method: 'POST',
         body,
       });

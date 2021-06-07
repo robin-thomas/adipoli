@@ -1,21 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
-import {
-  Alert,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  InputAdornment,
-  Snackbar,
-  TextField,
-  Tooltip,
-} from '@material-ui/core';
-import { Row, Col } from 'react-bootstrap';
+import { Box } from '@material-ui/core';
 
-import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
 
 const Balance = ({ fetcher }) => {
@@ -27,7 +12,7 @@ const Balance = ({ fetcher }) => {
     if (ctx.user?.walletId) {
       fetcher(setBalance, ctx.user.walletId);
     }
-  }, [ctx.user, ctx.toppedUp, setBalance]);
+  }, [ctx.user, ctx.toppedUp, setBalance, fetcher]);
 
   return (
     <Box sx={{ pt: 5, pb: 0 }}>

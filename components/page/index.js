@@ -1,5 +1,4 @@
 import { Box } from '@material-ui/core';
-import { Row, Col } from 'react-bootstrap';
 
 import Layout from '../layout';
 import Balance from '../wallet/balance';

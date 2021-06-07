@@ -2,17 +2,16 @@ import { Box } from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
 
 import Page from '../components/page';
-import Tabs from '../components/wallet/tabs';
-import Transactions from '../components/wallet/transactions';
-import RequestPayment from '../components/wallet/requestPayment';
+import Tabs from '../components/crypto/tabs';
+import Transactions from '../components/crypto/transactions';
 
 import fetchJson from '../utils/fetchJson';
 
-const Wallet = () => {
+const Crypto = () => {
   const fetcher = async (setter, walletId) => {
     try {
-      const url = `/api/wallet/${walletId}`;
-      const resp = await fetchJson(url, { method: 'GET' });
+      const url = `/api/crypto/${walletId}`;
+      const resp = await fetchJson(url);
       setter(resp.balance);
     } catch (err) {
       // TODO.
@@ -20,7 +19,7 @@ const Wallet = () => {
   };
 
   return (
-    <Page title="Wallet" fetcher={fetcher} end={<RequestPayment />}>
+    <Page title="Cryptocurrencies" fetcher={fetcher}>
       <Row>
         <Col md="4">
           <Box sx={{ mt: 1 }}>
@@ -35,4 +34,4 @@ const Wallet = () => {
   );
 };
 
-export default Wallet;
+export default Crypto;

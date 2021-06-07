@@ -6,13 +6,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import TopUp from './topup';
 import Transfer from './transfer';
-import Tabs from '../page/tabs';
-
-const TabPanel = ({ children, value, index }) => (
-  <div role="tabpanel" hidden={value !== index}>
-    {value === index && <>{children}</>}
-  </div>
-);
+import PageTabs from '../page/tabs';
 
 const AutoDebit = () => {
   const [checked, setChecked] = useState(false);
@@ -43,8 +37,8 @@ const AutoDebit = () => {
   );
 };
 
-const TopUpTransfer = () => (
-  <Tabs panels={[<TopUp />, <Transfer />, <AutoDebit />]}>
+const Tabs = () => (
+  <PageTabs panels={[<TopUp />, <Transfer />, <AutoDebit />]}>
     <Tooltip title="Topup your wallet">
       <Tab label="Top Up" />
     </Tooltip>
@@ -54,7 +48,7 @@ const TopUpTransfer = () => (
     <Tooltip title="Settings" className="ml-auto" arrow>
       <Tab label={<SettingsIcon />} />
     </Tooltip>
-  </Tabs>
+  </PageTabs>
 );
 
-export default TopUpTransfer;
+export default Tabs;

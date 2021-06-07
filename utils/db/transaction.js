@@ -6,9 +6,9 @@ const Account = {
     return db.collection('transaction');
   },
 
-  getTransactionsByEmail: async (email) => {
+  getTransactions: async (walletId) => {
     const collection = await Account.getCollection();
-    return await collection.find({ email }).toArray();
+    return await collection.find({ walletId }).toArray();
   },
 
   createTransaction: async (params) => {

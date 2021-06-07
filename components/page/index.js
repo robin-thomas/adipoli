@@ -3,11 +3,9 @@ import { Row, Col } from 'react-bootstrap';
 
 import Layout from '../layout';
 import Balance from '../wallet/balance';
-import TopUpTransfer from '../wallet/topup-transfer';
-import Transactions from '../wallet/transactions';
 import useUser from '../utils/useUser';
 
-const Page = ({ title, fetcher, children }) => {
+const Page = ({ title, fetcher, end, children }) => {
   const { user } = useUser({ redirectTo: '/login' });
   if (!user || user.isLoggedIn === false) {
     return null;
@@ -15,7 +13,7 @@ const Page = ({ title, fetcher, children }) => {
 
   return (
     <Layout title={title}>
-      <Balance fetcher={fetcher} />
+      <Balance fetcher={fetcher} end={end} />
       <Box
         sx={{
           display: 'flex',

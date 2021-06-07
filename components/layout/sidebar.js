@@ -98,7 +98,13 @@ const SideBar = () => {
       href: '/wallet',
       icon: AccountBalanceWalletIcon,
     },
-    FlightInsurance: {
+    crypto: {
+      name: 'crypto',
+      title: 'Cryptocurrencies',
+      href: '/crypto',
+      icon: FlightTakeoffIcon,
+    },
+    flightInsurance: {
       name: 'flight-insurance',
       title: 'Flight Insurance',
       href: '/flight-insurance',

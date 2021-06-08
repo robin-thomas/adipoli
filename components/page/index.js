@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 
 import Layout from '../layout';
-import Balance from '../wallet/balance';
+import Balance from './balance';
 import useUser from '../utils/useUser';
 import { DataContext } from '../utils/DataProvider';
 

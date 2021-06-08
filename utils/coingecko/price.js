@@ -3,9 +3,7 @@ import { makeRequest } from './utils';
 import config from '../../tokens.json';
 
 const Price = {
-  getPortfolioBalance: async (tokens) => {
-    const tokenIds = tokens.map((token) => config[token.id].id);
-
+  getPrices: async (tokenIds = Object.values(config).map((e) => e.id)) => {
     const prices = await makeRequest({
       method: 'get',
       url: '/price',
@@ -14,6 +12,13 @@ const Price = {
         ids: tokenIds.join(','),
       },
     });
+
+    return prices;
+  },
+
+  getPortfolioBalance: async (tokens) => {
+    const tokenIds = tokens.map((token) => config[token.id].id);
+    const prices = await Price.getPrices(tokenIds);
 
     return tokens.reduce((p, token) => {
       const tokenId = config[token.id].id;

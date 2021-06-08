@@ -1,10 +1,12 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Box, Button, Select, MenuItem } from '@material-ui/core';
+import { Box, Button, Select, MenuItem, Skeleton } from '@material-ui/core';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Amount from '../credit-card/amount';
+import fetchJson from '../../utils/fetchJson';
 
 import tokens from '../../tokens.json';
 
@@ -29,6 +31,21 @@ const SelectItem = ({ token }) => (
 );
 
 const Buy = () => {
+  const [prices, setPrices] = useState({});
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const resp = await fetchJson('/api/crypto/prices');
+        setPrices(resp.prices);
+      } catch (err) {
+        // TODO
+      }
+    };
+
+    fn();
+  }, []);
+
   const onSubmit = async (values, setStatus) => {};
 
   return (
@@ -81,7 +98,16 @@ const Buy = () => {
               </MenuItem>
             ))}
           </Select>
-          <Box sx={{ mt: 4, mb: 4 }} />
+          <Box sx={{ mt: 2, mb: 5 }}>
+            {Object.keys(prices).length === 0 ? (
+              <Skeleton variant="text" animation="wave" />
+            ) : (
+              <p>
+                1 {values.token.toUpperCase()} = $
+                {prices[tokens[values.token]?.id]?.usd?.toLocaleString()}
+              </p>
+            )}
+          </Box>
           <Button
             color="primary"
             disabled={isSubmitting || !values.amount || values.amount === '0'}

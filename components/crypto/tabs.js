@@ -2,9 +2,10 @@ import { Tab, Tooltip } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import PageTabs from '../page/tabs';
+import Buy from './buy';
 
 const Tabs = () => (
-  <PageTabs panels={[<></>, <></>, <></>, <></>]}>
+  <PageTabs panels={[<Buy />, <></>, <></>, <></>]}>
     <Tooltip title="Buy crypticurrencies">
       <Tab label="Buy" />
     </Tooltip>

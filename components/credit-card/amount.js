@@ -1,10 +1,6 @@
 import { InputAdornment, TextField } from '@material-ui/core';
 
-const DollarAdornment = () => (
-  <InputAdornment position="start">
-    <span style={{ fontSize: 30, color: '#5664d2' }}>$</span>
-  </InputAdornment>
-);
+import DollarAdornment from '../amount/dollarAdornment';
 
 const Amount = ({
   values,
@@ -13,6 +9,7 @@ const Amount = ({
   handleBlur,
   handleChange,
   isSubmitting,
+  color,
 }) => {
   const onChange = (e) => {
     e.target.value = e.target.value.replace(/\D+/g, '').slice(0, 3);
@@ -38,7 +35,7 @@ const Amount = ({
           fontSize: 40,
           textAlign: 'right',
           fontFamily: 'Raleway',
-          color: 'white',
+          color: color || 'white',
         },
       }}
       InputProps={{

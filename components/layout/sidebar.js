@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { Box, Button, IconButton, Tooltip } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
@@ -77,6 +78,10 @@ const SidebarButton = ({ name, title, href, icon }) => {
   );
 };
 
+const Bitcoin = () => (
+  <Image src="/images/bitcoin.png" width="40" height="40" />
+);
+
 const SideBar = () => {
   const { user } = useUser();
 
@@ -101,7 +106,7 @@ const SideBar = () => {
       name: 'crypto',
       title: 'Cryptocurrencies',
       href: '/crypto',
-      icon: FlightTakeoffIcon,
+      icon: Bitcoin,
     },
     flightInsurance: {
       name: 'flight-insurance',

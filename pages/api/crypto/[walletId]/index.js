@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 import CryptoUtil from '../../../../utils/db/crypto';
+import CoingeckoUtil from '../../../../utils/coingecko/price';
 
 async function handler(req, res) {
   if (req.method === 'GET') {
@@ -15,9 +16,15 @@ async function handler(req, res) {
         throw new Error('Required fields missing or invalid in request');
       }
 
-      const balance = await CryptoUtil.getBalance(req.query.walletId);
+      const portfolio = await CryptoUtil.getBalance(req.query.walletId);
+      if (portfolio?.tokens) {
+        const ids = Object.keys(portfolio.tokens);
+        const t = ids.reduce((p, t) => [...p, portfolio.tokens[t]], []);
 
-      res.status(200).json({ statusCode: 200, success: true, balance });
+        portfolio.balance = await CoingeckoUtil.getPortfolioBalance(t);
+      }
+
+      res.status(200).json({ statusCode: 200, success: true, portfolio });
     } catch (err) {
       console.error(err);
       res.status(400).json({ statusCode: 400, error: err.message });

@@ -12,14 +12,14 @@ const Crypto = () => {
     try {
       const url = `/api/crypto/${walletId}`;
       const resp = await fetchJson(url);
-      setter(resp.balance);
+      setter(resp.portfolio.balance);
     } catch (err) {
       // TODO.
     }
   };
 
   return (
-    <Page title="Cryptocurrencies" fetcher={fetcher}>
+    <Page title="Cryptocurrencies" name="crypto" fetcher={fetcher}>
       <Row>
         <Col md="4">
           <Box sx={{ mt: 1 }}>

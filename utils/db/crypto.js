@@ -8,8 +8,12 @@ const Account = {
 
   getBalance: async (walletId) => {
     const collection = await Account.getCollection();
-    const crypto = await collection.findOnce({ walletId });
-    return crypto.balance;
+    const crypto = await collection.findOne({ walletId });
+
+    return {
+      tokens: crypto?.tokens || {},
+      balance: 0,
+    };
   },
 
   upsert: async (walletId, params) => {

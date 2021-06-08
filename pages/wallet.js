@@ -20,7 +20,12 @@ const Wallet = () => {
   };
 
   return (
-    <Page title="Wallet" fetcher={fetcher} end={<RequestPayment />}>
+    <Page
+      title="Wallet"
+      name="wallet"
+      fetcher={fetcher}
+      end={<RequestPayment />}
+    >
       <Row>
         <Col md="4">
           <Box sx={{ mt: 1 }}>

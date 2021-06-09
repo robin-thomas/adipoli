@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { fromUnixTime, format } from 'date-fns';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 import styles from './transaction.module.css';

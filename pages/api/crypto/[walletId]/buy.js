@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+import WalletUtil from '../../../../utils/rapyd/wallet';
 import CryptoUtil from '../../../../utils/db/crypto';
 import TransactionUtil from '../../../../utils/db/transaction';
 
@@ -22,6 +23,11 @@ async function handler(req, res) {
       }
 
       // Transfer <Amount> from user wallet to client wallet.
+      await WalletUtil.transfer({
+        amount: params.amount,
+        sourceWalletId: params.walletId,
+        destinationWalletId: process.env.APP_WALLET_ID,
+      });
 
       const amount = (parseFloat(params.amount) / params.price).toFixed(5);
 

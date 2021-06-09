@@ -118,7 +118,7 @@ const Buy = () => {
               </Box>
             </Col>
           </Row>
-          <Box sx={{ mt: 1, mb: 4 }}>
+          <Box sx={{ mt: 1, mb: 3 }}>
             <p className={styles.para}>
               Amount shall be taken from your wallet balance.
             </p>

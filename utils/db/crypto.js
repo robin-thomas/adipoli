@@ -27,7 +27,7 @@ const Account = {
     });
   },
 
-  updateBalance: async ({ walletId, token }) => {
+  updateBalance: async ({ walletId, token }, decrease = false) => {
     const collection = await Account.getCollection();
 
     return await collection.find({ walletId }).forEach((doc) => {
@@ -35,7 +35,12 @@ const Account = {
         doc.tokens[token.id] = 0;
       }
 
-      doc.tokens[token.id] += token.amount;
+      if (decrease) {
+        doc.tokens[token.id] -= token.amount;
+      } else {
+        doc.tokens[token.id] += token.amount;
+      }
+
       doc.modified = new Date();
 
       collection.save(doc);

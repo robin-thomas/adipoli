@@ -1,5 +1,6 @@
 import { Tooltip } from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
+import Image from 'next/image';
 import { fromUnixTime, format } from 'date-fns';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -21,7 +22,7 @@ const getTransactionType = (type) => {
   }
 };
 
-const getTransactionIcon = (type) => {
+const getTransactionIcon = (type, id) => {
   switch (type) {
     case 'p2p_transfer':
       return <PersonOutlinedIcon fontSize="large" />;
@@ -30,7 +31,12 @@ const getTransactionIcon = (type) => {
       return <GetAppIcon fontSize="large" />;
 
     case 'BUY':
-      return <CreditCardIcon fontSize="large" />;
+    case 'SELL':
+      const x = id.lastIndexOf('/');
+      const token = id.slice(x + 1).toLowerCase();
+      return (
+        <Image src={`/images/icons/${token}.svg`} width={48} height={48} />
+      );
 
     default:
       return <AccountBalanceIcon fontSize="large" />;
@@ -41,7 +47,9 @@ const Transaction = ({ id, type, amount, created_at }) => (
   <div className={styles.txnContainer}>
     <Row className="align-items-center">
       <Col md="auto">
-        <div className={styles.iconContainer}>{getTransactionIcon(type)}</div>
+        <div className={styles.iconContainer}>
+          {getTransactionIcon(type, id)}
+        </div>
       </Col>
       <Col md="2">{getTransactionType(type)}</Col>
       <Tooltip title={id} placement="top" arrow>

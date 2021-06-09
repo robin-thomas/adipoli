@@ -1,5 +1,3 @@
-import * as yup from 'yup';
-
 import CoingeckoUtil from '../../../utils/coingecko/price';
 
 async function handler(req, res) {

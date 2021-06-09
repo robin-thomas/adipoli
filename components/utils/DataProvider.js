@@ -8,17 +8,33 @@ const DataProvider = (props) => {
   const [user, setUser] = useState(null);
   const [active, setActive] = useState('wallet');
   const [toppedUp, setToppedUp] = useState(0);
+  const [prices, setPrices] = useState({});
 
   useEffect(() => {
-    const fn = async () => {
+    let timerId;
+
+    (async () => {
       const resp = await fetchJson('/api/session/user');
 
       if (resp?.isLoggedIn) {
         setUser(resp);
       }
+    })();
+
+    const fn = async () => {
+      try {
+        const resp = await fetchJson('/api/crypto/prices');
+        setPrices(resp.prices);
+
+        timerId = setInterval(fn, 120000);
+      } catch (err) {
+        // TODO
+      }
     };
 
     fn();
+
+    return () => clearInterval(timerId);
   }, []);
 
   return (
@@ -30,6 +46,8 @@ const DataProvider = (props) => {
         setActive,
         toppedUp,
         setToppedUp,
+        prices,
+        setPrices,
       }}
     >
       {props.children}

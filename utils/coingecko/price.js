@@ -22,8 +22,6 @@ const Price = {
 
     return tokens.reduce((p, token) => {
       const tokenId = config[token.id].id;
-      const tokenAmount = token.amount;
-
       return p + token.amount * parseFloat(prices[tokenId].usd);
     }, 0);
   },

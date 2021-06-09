@@ -24,7 +24,7 @@ async function handler(req, res) {
 
       // Transfer <Amount> from user wallet to client wallet.
       await WalletUtil.transfer({
-        amount: params.amount,
+        amount: parseInt(params.amount),
         sourceWalletId: params.walletId,
         destinationWalletId: process.env.APP_WALLET_ID,
       });
@@ -50,8 +50,12 @@ async function handler(req, res) {
 
       res.status(200).json({ statusCode: 200, success: true });
     } catch (err) {
-      console.error(err);
-      res.status(400).json({ statusCode: 400, error: err.message });
+      let message = err.message;
+      if (message === 'INVALID_TRANSFER_DETAILS') {
+        message = 'NOT_ENOUGH_FUNDS';
+      }
+
+      res.status(400).json({ statusCode: 400, error: message });
     }
   } else {
     res.status(404).json();

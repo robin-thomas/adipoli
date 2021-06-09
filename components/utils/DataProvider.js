@@ -11,8 +11,6 @@ const DataProvider = (props) => {
   const [prices, setPrices] = useState({});
 
   useEffect(() => {
-    let timerId;
-
     (async () => {
       const resp = await fetchJson('/api/session/user');
 
@@ -20,6 +18,8 @@ const DataProvider = (props) => {
         setUser(resp);
       }
     })();
+
+    let timerId;
 
     const fn = async () => {
       try {

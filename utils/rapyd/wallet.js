@@ -44,9 +44,7 @@ const Wallet = {
     const method = 'post';
     const url = '/v1/account/transfer';
 
-    const response = await makeRequest({ method, url, data });
-
-    return response.data?.status?.status === 'SUCCESS';
+    return await makeRequest({ method, url, data });
   },
 
   topUp: async (params) => {

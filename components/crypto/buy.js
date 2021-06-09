@@ -72,7 +72,7 @@ const Buy = () => {
         token: Object.keys(tokens)[0],
       }}
       validationSchema={Yup.object().shape({
-        amount: Yup.number().min(0).max(999).required('Amount is required'),
+        amount: Yup.number().min(10).max(999).required('Amount is required'),
       })}
       onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
     >

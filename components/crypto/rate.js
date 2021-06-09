@@ -3,7 +3,7 @@ import { Box, Skeleton } from '@material-ui/core';
 import styles from './rate.module.css';
 
 const CryptoRate = ({ prices, rate }) => (
-  <Box sx={{ mt: 2, mb: 5 }}>
+  <Box sx={{ mt: 2, mb: 4 }}>
     {Object.keys(prices).length === 0 ? (
       <Skeleton variant="text" animation="wave" />
     ) : (

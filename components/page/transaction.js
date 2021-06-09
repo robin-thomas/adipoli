@@ -3,6 +3,8 @@ import { Row, Col } from 'react-bootstrap';
 import { fromUnixTime, format } from 'date-fns';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 import styles from './transaction.module.css';
 
@@ -26,6 +28,12 @@ const getTransactionIcon = (type) => {
 
     case 'payment_funds_in':
       return <GetAppIcon fontSize="large" />;
+
+    case 'BUY':
+      return <CreditCardIcon fontSize="large" />;
+
+    default:
+      return <AccountBalanceIcon fontSize="large" />;
   }
 };
 
@@ -38,7 +46,11 @@ const Transaction = ({ id, type, amount, created_at }) => (
       <Col md="2">{getTransactionType(type)}</Col>
       <Tooltip title={id} placement="top" arrow>
         <Col md="4" className={styles.id}>
-          ID {id.slice(0, 20)}...
+          {['BUY', 'SELL', 'SWAP'].includes(type) ? (
+            <>{id}</>
+          ) : (
+            <>ID {id.slice(0, 20)}...</>
+          )}
         </Col>
       </Tooltip>
       <Col md="2" className={styles.amount}>

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Row, Col } from 'react-bootstrap';
-import { Alert, Box, Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 
 import fetchJson from '../../utils/fetchJson';
 import { DataContext } from '../utils/DataProvider';
@@ -13,6 +13,7 @@ import Name from './name';
 import Expiry from './expiry';
 import CVV from './cvv';
 import Issuer from './issuer';
+import Message from '../page/message';
 
 import styles from './index.module.css';
 
@@ -107,13 +108,7 @@ const CreditCard = ({ name, walletId, amount }) => {
 
         return (
           <form onSubmit={handleSubmit} autoComplete="off">
-            {!!status && (
-              <Box sx={{ mt: -4, mb: 2 }}>
-                <Alert severity={`${status.error ? 'error' : 'success'}`}>
-                  {status.message.toUpperCase()}
-                </Alert>
-              </Box>
-            )}
+            <Message status={status} />
             <Row className={styles.card}>
               <Col md="6">
                 <Box sx={{ mt: 0, mb: 2 }}>

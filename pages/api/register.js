@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 import AccountUtil from '../../utils/db/account';
 import WalletUtil from '../../utils/rapyd/wallet';
+import CryptoUtil from '../../utils/db/crypto';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
@@ -28,6 +29,7 @@ async function handler(req, res) {
 
       const walletId = await WalletUtil.createWallet(email);
       await AccountUtil.createAccount({ ...req.body, walletId });
+      await CryptoUtil.createBalance(walletId);
 
       res.status(200).json({ walletId });
     } catch (err) {

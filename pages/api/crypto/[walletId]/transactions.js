@@ -15,9 +15,17 @@ async function handler(req, res) {
         throw new Error('Required fields missing or invalid in request');
       }
 
-      const transactions = await TransactionUtil.getTransactions(
-        req.query.walletId
-      );
+      const resp = await TransactionUtil.getTransactions(req.query.walletId);
+      const transactions = resp
+        .map((e) => ({
+          id: `${
+            e.token.amount
+          } ${e.token.id.toUpperCase()} @ $${e.token.price.toLocaleString()}/${e.token.id.toUpperCase()}`,
+          created_at: new Date(e.created).getTime() / 1000,
+          type: e.type,
+          amount: parseFloat(`${e.type === 'BUY' ? '-' : ''}${e.amount}`),
+        }))
+        .reverse();
 
       res.status(200).json({ statusCode: 200, success: true, transactions });
     } catch (err) {

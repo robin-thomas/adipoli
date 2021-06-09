@@ -17,13 +17,15 @@ const Price = {
   },
 
   getPortfolioBalance: async (tokens) => {
-    const tokenIds = tokens.map((token) => config[token.id].id);
+    const tokenIds = Object.keys(tokens).map((t) => config[t].id);
     const prices = await Price.getPrices(tokenIds);
 
-    return tokens.reduce((p, token) => {
-      const tokenId = config[token.id].id;
-      return p + token.amount * parseFloat(prices[tokenId].usd);
+    const balance = Object.keys(tokens).reduce((p, t) => {
+      const tokenId = config[t].id;
+      return p + tokens[t] * parseFloat(prices[tokenId].usd);
     }, 0);
+
+    return balance.toFixed(2);
   },
 };
 

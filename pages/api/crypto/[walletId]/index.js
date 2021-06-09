@@ -17,11 +17,11 @@ async function handler(req, res) {
       }
 
       const portfolio = await CryptoUtil.getBalance(req.query.walletId);
-      if (portfolio?.tokens) {
-        const ids = Object.keys(portfolio.tokens);
-        const t = ids.reduce((p, t) => [...p, portfolio.tokens[t]], []);
 
-        portfolio.balance = await CoingeckoUtil.getPortfolioBalance(t);
+      if (portfolio?.tokens) {
+        portfolio.balance = await CoingeckoUtil.getPortfolioBalance(
+          portfolio.tokens
+        );
       }
 
       res.status(200).json({ statusCode: 200, success: true, portfolio });

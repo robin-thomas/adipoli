@@ -8,7 +8,9 @@ import SelectCrypto from './select';
 import CryptoButton from './button';
 import CryptoRate from './rate';
 import Amount from '../credit-card/amount';
+import Message from '../page/message';
 import { DataContext } from '../utils/DataProvider';
+import fetchJson from '../../utils/fetchJson';
 
 import tokens from '../../tokens.json';
 
@@ -26,13 +28,41 @@ const Buy = () => {
     }
   }, [ctx.prices]);
 
-  const onSubmit = async (values, setStatus) => {};
-
   const onChange = (e, handleChange, values) => {
     const token = e.target.value;
     const tokenId = tokens[token].id;
     setPrice(parseFloat(ctx.prices[tokenId].usd));
     handleChange(e);
+  };
+
+  const onSubmit = async (values, setStatus) => {
+    setStatus(null);
+
+    const body = {
+      walletId: ctx.user.walletId,
+      tokenId: values.token,
+      amount: values.amount,
+      price: parseFloat(ctx.prices[tokens[values.token].id].usd),
+    };
+
+    try {
+      await fetchJson(`/api/crypto/${ctx.user.walletId}/buy`, {
+        method: 'POST',
+        body,
+      });
+      setStatus({
+        success: true,
+        message: `Bought $${
+          values.amount
+        } ${values.token.toUpperCase()} successfully!`,
+      });
+
+      ctx.setToppedUp((p) => p + 1);
+    } catch (err) {
+      const message =
+        err.data.error ?? `Failed to buy ${values.token.toUpperCase()}!`;
+      setStatus({ error: true, message });
+    }
   };
 
   return (
@@ -57,6 +87,7 @@ const Buy = () => {
         status,
       }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
+          <Message status={status} />
           <Row className="align-items-center">
             <Col md="5">
               <Amount
@@ -87,7 +118,7 @@ const Buy = () => {
               </Box>
             </Col>
           </Row>
-          <Box sx={{ mt: 2, mb: 5 }}>
+          <Box sx={{ mt: 1, mb: 4 }}>
             <p className={styles.para}>
               Amount shall be taken from your wallet balance.
             </p>

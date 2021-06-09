@@ -16,19 +16,30 @@ const Account = {
     };
   },
 
-  upsert: async (walletId, params) => {
+  createBalance: async (walletId) => {
     const collection = await Account.getCollection();
 
-    return await collection.updateOne(
-      { walletId },
-      {
-        $set: {
-          ...params,
-          modified: new Date(),
-        },
-      },
-      { upsert: true }
-    );
+    return await collection.insertOne({
+      walletId,
+      tokens: {},
+      created: new Date(),
+      modified: new Date(),
+    });
+  },
+
+  updateBalance: async ({ walletId, token }) => {
+    const collection = await Account.getCollection();
+
+    return await collection.find({ walletId }).forEach((doc) => {
+      if (!(token.id in doc.tokens)) {
+        doc.tokens[token.id] = 0;
+      }
+
+      doc.tokens[token.id] += token.amount;
+      doc.modified = new Date();
+
+      collection.save(doc);
+    });
   },
 };
 

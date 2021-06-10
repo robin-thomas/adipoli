@@ -8,6 +8,7 @@ import { DataContext } from '../utils/DataProvider';
 
 const Page = ({ title, name, fetcher, end, children }) => {
   const ctx = useContext(DataContext);
+
   useEffect(() => {
     if (name) {
       ctx.setActive(name);

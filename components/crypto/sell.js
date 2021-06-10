@@ -29,7 +29,6 @@ const Sell = () => {
   const [price, setPrice] = useState('');
   const [initial, setInitial] = useState(getInitial());
   const [schema, setSchema] = useState(getSchema());
-  const [balance, setBalance] = useState({});
 
   const ctx = useContext(DataContext);
 
@@ -44,7 +43,7 @@ const Sell = () => {
   const limitSet = (tokenId, token) => {
     const _price = priceCal(tokenId);
     const min = parseFloat((10 / _price).toFixed(5));
-    const max = balance[token] || 0;
+    const max = ctx.balances[token] || 0;
     setSchema(getSchema(min, max));
     setInitial(getInitial(max));
 
@@ -52,29 +51,12 @@ const Sell = () => {
   };
 
   useEffect(() => {
-    const fn = async () => {
-      try {
-        const resp = await fetchJson(
-          `/api/crypto/${ctx.user.walletId}/balance`
-        );
-        setBalance(resp.tokens);
-      } catch (err) {
-        // TODO
-      }
-    };
-
-    if (ctx.user?.walletId) {
-      fn();
-    }
-  }, []);
-
-  useEffect(() => {
     if (Object.keys(ctx.prices).length > 0) {
       const token = Object.keys(tokens)[0];
       const tokenId = tokens[token].id;
       limitSet(tokenId, token);
     }
-  }, [ctx.prices, balance]);
+  }, [ctx.prices, ctx.balances]);
 
   const onSelectChange = (e, handleChange, values) => {
     const tokenId = tokens[e.target.value].id;

@@ -22,7 +22,7 @@ const Header = ({ transactions }) => (
   </Row>
 );
 
-const Transactions = ({ fetcher }) => {
+const Transactions = ({ fetcher, height }) => {
   const [transactions, setTransactions] = useState(null);
 
   const ctx = useContext(DataContext);
@@ -55,7 +55,11 @@ const Transactions = ({ fetcher }) => {
       {!transactions ? (
         kids
       ) : transactions.length > 0 ? (
-        <Scrollbars autoHide renderThumbHorizontal={() => <div></div>}>
+        <Scrollbars
+          style={{ ...(height ? { height } : {}) }}
+          autoHide
+          renderThumbHorizontal={() => <div></div>}
+        >
           {transactions.map((transaction) => (
             <Transaction key={transaction.id} {...transaction} />
           ))}

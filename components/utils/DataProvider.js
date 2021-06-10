@@ -9,6 +9,7 @@ const DataProvider = (props) => {
   const [active, setActive] = useState('wallet');
   const [toppedUp, setToppedUp] = useState(0);
   const [prices, setPrices] = useState({});
+  const [balances, setBalances] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -18,8 +19,10 @@ const DataProvider = (props) => {
         setUser(resp);
       }
     })();
+  }, []);
 
-    let timerId;
+  useEffect(() => {
+    let timerId = null;
 
     const fn = async () => {
       try {
@@ -32,10 +35,27 @@ const DataProvider = (props) => {
       }
     };
 
-    fn();
+    if (user?.isLoggedIn) {
+      fn();
 
-    return () => clearInterval(timerId);
-  }, []);
+      return () => clearInterval(timerId);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const resp = await fetchJson(`/api/crypto/${user.walletId}/balance`);
+        setBalances(resp.tokens);
+      } catch (err) {
+        // TODO
+      }
+    };
+
+    if (user?.isLoggedIn) {
+      fn();
+    }
+  }, [user]);
 
   return (
     <DataContext.Provider
@@ -48,6 +68,8 @@ const DataProvider = (props) => {
         setToppedUp,
         prices,
         setPrices,
+        balances,
+        setBalances,
       }}
     >
       {props.children}

@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 
 import Page from '../components/page';
 import Tabs from '../components/crypto/tabs';
+import Graph from '../components/crypto/graph';
 import DoughtNut from '../components/crypto/doughnut';
 import Transactions from '../components/crypto/transactions';
 
@@ -28,8 +29,11 @@ const Crypto = () => {
           </Box>
         </Col>
         <Col md="7" className="mx-auto">
-          <Box sx={{ mb: 0, mt: -12 }}>
+          <Box sx={{ mb: 6, mt: -13 }}>
             <Row>
+              <Col md="auto" className="mr-auto">
+                <Graph />
+              </Col>
               <Col md="auto" className="ml-auto">
                 <DoughtNut />
               </Col>

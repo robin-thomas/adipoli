@@ -27,9 +27,9 @@ const DoughnutOptions = {
 };
 
 const COLORS_SERIES = [
-  palette.secondary.light,
-  palette.secondary.lighten,
-  palette.secondary.main,
+  palette.primary.light,
+  palette.primary.lighten,
+  palette.primary.main,
 ];
 
 const getData = (balances) => ({

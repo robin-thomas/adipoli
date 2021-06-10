@@ -10,6 +10,7 @@ const DataProvider = (props) => {
   const [toppedUp, setToppedUp] = useState(0);
   const [prices, setPrices] = useState({});
   const [balances, setBalances] = useState({});
+  const [portfolio, setPortfolio] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -57,6 +58,21 @@ const DataProvider = (props) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const resp = await fetchJson(`/api/crypto/${user.walletId}/portfolio`);
+        setPortfolio(resp.portfolio);
+      } catch (err) {
+        // TODO
+      }
+    };
+
+    if (user?.isLoggedIn) {
+      fn();
+    }
+  }, [user]);
+
   return (
     <DataContext.Provider
       value={{
@@ -70,6 +86,8 @@ const DataProvider = (props) => {
         setPrices,
         balances,
         setBalances,
+        portfolio,
+        setPortfolio,
       }}
     >
       {props.children}

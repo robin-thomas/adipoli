@@ -52,8 +52,8 @@ async function handler(req, res) {
           _val += _tokens[_token] * _prices[config[_token].id];
         }
 
-        return { ...p, [date]: parseFloat(_val.toFixed(2)) };
-      }, {});
+        return [...p, { date, balance: parseFloat(_val.toFixed(2)) }];
+      }, []);
 
       res.status(200).json({ statusCode: 200, success: true, portfolio });
     } catch (err) {

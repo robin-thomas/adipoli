@@ -15,28 +15,73 @@ import tokens from '../../tokens.json';
 
 import styles from './buy.module.css';
 
+const getInitial = (amount = 0) => ({
+  amount,
+  token: Object.keys(tokens)[0],
+});
+
+const getSchema = (min = 0, max = 0) =>
+  Yup.object().shape({
+    amount: Yup.number().min(min).max(max).required('Amount is required'),
+  });
+
 const Sell = () => {
   const [price, setPrice] = useState('');
+  const [initial, setInitial] = useState(getInitial());
+  const [schema, setSchema] = useState(getSchema());
+  const [balance, setBalance] = useState({});
 
   const ctx = useContext(DataContext);
 
   const priceCal = (tokenId) => {
-    const _price = parseFloat(ctx.prices[tokenId].usd);
+    let _price = parseFloat(ctx.prices[tokenId].usd);
+    _price -= 0.01 * _price; // Add a spread of 3%;
+    setPrice(_price);
 
-    // Add a spread of 3%;
-    setPrice(_price - 0.01 * _price);
+    return _price;
+  };
+
+  const limitSet = (tokenId, token) => {
+    const _price = priceCal(tokenId);
+    const min = parseFloat((10 / _price).toFixed(5));
+    const max = balance[token] || 0;
+    setSchema(getSchema(min, max));
+    setInitial(getInitial(max));
+
+    return max;
   };
 
   useEffect(() => {
-    if (Object.keys(ctx.prices).length > 0) {
-      const tokenId = tokens[Object.keys(tokens)[0]].id;
-      priceCal(tokenId);
-    }
-  }, [ctx.prices]);
+    const fn = async () => {
+      try {
+        const resp = await fetchJson(
+          `/api/crypto/${ctx.user.walletId}/balance`
+        );
+        setBalance(resp.tokens);
+      } catch (err) {
+        // TODO
+      }
+    };
 
-  const onSelectChange = (e, handleChange) => {
+    if (ctx.user?.walletId) {
+      fn();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(ctx.prices).length > 0) {
+      const token = Object.keys(tokens)[0];
+      const tokenId = tokens[token].id;
+      limitSet(tokenId, token);
+    }
+  }, [ctx.prices, balance]);
+
+  const onSelectChange = (e, handleChange, values) => {
     const tokenId = tokens[e.target.value].id;
-    priceCal(tokenId);
+
+    const max = limitSet(tokenId, e.target.value);
+
+    values.amount = max;
     handleChange(e);
   };
 
@@ -72,13 +117,9 @@ const Sell = () => {
 
   return (
     <Formik
-      initialValues={{
-        amount: '1',
-        token: Object.keys(tokens)[0],
-      }}
-      validationSchema={Yup.object().shape({
-        amount: Yup.number().min(0.1).max(999).required('Amount is required'),
-      })}
+      enableReinitialize={true}
+      initialValues={initial}
+      validationSchema={schema}
       onSubmit={(values, { setStatus }) => onSubmit(values, setStatus)}
     >
       {({
@@ -109,7 +150,7 @@ const Sell = () => {
                   InputLabelProps={{ shrink: true }}
                   inputProps={{
                     style: {
-                      fontSize: 40,
+                      fontSize: 30,
                       textAlign: 'right',
                       fontFamily: 'Raleway',
                     },
@@ -146,7 +187,7 @@ const Sell = () => {
           <SelectCrypto
             values={values}
             isSubmitting={isSubmitting}
-            handleChange={(e) => onSelectChange(e, handleChange)}
+            handleChange={(e) => onSelectChange(e, handleChange, values)}
           />
           <CryptoRate
             prices={ctx.prices}

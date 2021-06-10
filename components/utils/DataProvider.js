@@ -26,7 +26,7 @@ const DataProvider = (props) => {
         const resp = await fetchJson('/api/crypto/prices');
         setPrices(resp.prices);
 
-        timerId = setInterval(fn, 120000);
+        timerId = setInterval(fn, 10 * 60 * 1000);
       } catch (err) {
         // TODO
       }

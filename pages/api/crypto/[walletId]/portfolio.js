@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { fromUnixTime, format } from 'date-fns';
 
 import config from '../../../../tokens.json';
 import TransactionUtil from '../../../../utils/db/transaction';
@@ -30,7 +31,10 @@ async function handler(req, res) {
       const balances = resp
         .map((t) => ({
           ...t,
-          created: new Date(t.created).toISOString().substr(0, 10),
+          created: format(
+            fromUnixTime(new Date(t.created).getTime() / 1000),
+            'yyyy-MM-dd'
+          ),
         }))
         .reduce((p, t) => {
           if (t.type === 'BUY') {

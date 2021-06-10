@@ -12,6 +12,7 @@ async function handler(req, res) {
         tokenId: yup.string().required(),
         amount: yup.number().required(),
         price: yup.number().required(),
+        prices: yup.object().required(),
       });
 
       const params = { ...req.query, ...req.body };
@@ -39,6 +40,7 @@ async function handler(req, res) {
         amount,
         type: 'SELL',
         walletId: params.walletId,
+        prices: params.prices,
       };
 
       // Add a transaction.

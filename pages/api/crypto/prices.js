@@ -3,7 +3,12 @@ import CoingeckoUtil from '../../../utils/coingecko/price';
 async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const prices = await CoingeckoUtil.getPrices();
+      const _prices = await CoingeckoUtil.getPrices();
+
+      const prices = Object.keys(_prices).reduce(
+        (p, t) => ({ ...p, [t]: _prices[t].usd }),
+        {}
+      );
 
       res.status(200).json({ statusCode: 200, success: true, prices });
     } catch (err) {

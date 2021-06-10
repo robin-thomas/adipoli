@@ -34,7 +34,7 @@ const Sell = () => {
   const ctx = useContext(DataContext);
 
   const priceCal = (tokenId) => {
-    let _price = parseFloat(ctx.prices[tokenId].usd);
+    let _price = parseFloat(ctx.prices[tokenId]);
     _price -= 0.01 * _price; // Add a spread of 3%;
     setPrice(_price);
 
@@ -92,7 +92,8 @@ const Sell = () => {
       walletId: ctx.user.walletId,
       tokenId: values.token,
       amount: values.amount,
-      price: parseFloat(ctx.prices[tokens[values.token].id].usd),
+      price: parseFloat(ctx.prices[tokens[values.token].id]),
+      prices: ctx.prices,
     };
 
     try {

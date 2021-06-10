@@ -24,14 +24,14 @@ const Buy = () => {
   useEffect(() => {
     if (Object.keys(ctx.prices).length > 0) {
       const tokenId = tokens[Object.keys(tokens)[0]].id;
-      setPrice(parseFloat(ctx.prices[tokenId].usd));
+      setPrice(parseFloat(ctx.prices[tokenId]));
     }
   }, [ctx.prices]);
 
   const onChange = (e, handleChange, values) => {
     const token = e.target.value;
     const tokenId = tokens[token].id;
-    setPrice(parseFloat(ctx.prices[tokenId].usd));
+    setPrice(parseFloat(ctx.prices[tokenId]));
     handleChange(e);
   };
 
@@ -42,7 +42,8 @@ const Buy = () => {
       walletId: ctx.user.walletId,
       tokenId: values.token,
       amount: values.amount,
-      price: parseFloat(ctx.prices[tokens[values.token].id].usd),
+      price: parseFloat(ctx.prices[tokens[values.token].id]),
+      prices: ctx.prices,
     };
 
     try {

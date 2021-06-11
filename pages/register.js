@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Link from 'next/link';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -16,8 +17,11 @@ import CryptoJS from 'crypto-js';
 import Layout from '../components/layout';
 import useUser from '../components/utils/useUser';
 import fetchJson from '../utils/fetchJson';
+import { DataContext } from '../components/utils/DataProvider';
 
 const Register = () => {
+  const ctx = useContext(DataContext);
+
   const { user, mutateUser } = useUser({
     redirectTo: '/wallet',
     redirectIfFound: true,
@@ -46,9 +50,12 @@ const Register = () => {
 
     try {
       // Create the session.
-      await mutateUser(
-        fetchJson('/api/session/login', { method: 'POST', body })
-      );
+      const user = await fetchJson('/api/session/login', {
+        method: 'POST',
+        body: { email, password },
+      });
+      ctx.setUser(user);
+      await mutateUser(user);
     } catch (err) {
       console.log('error', err.data);
       return setStatus('Failed to create a session! Please try again.');

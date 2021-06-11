@@ -18,6 +18,8 @@ const CryptoLine = ({ data }) => (
     enableGridX={false}
     enableGridY={false}
     colors={{ scheme: 'red_grey' }}
+    axisLeft={null}
+    axisBottom={null}
   />
 );
 
@@ -45,7 +47,7 @@ const Graph = () => {
   return (
     <>
       <h2>Portfolio</h2>
-      <div style={{ height: 300, width: 500 }}>
+      <div style={{ height: 400, width: 500 }}>
         <CryptoLine data={data} />
       </div>
     </>

@@ -12,7 +12,7 @@ const CryptoTransactions = () => {
     }
   };
 
-  return <Transactions fetcher={fetcher} height={300} />;
+  return <Transactions fetcher={fetcher} height={350} />;
 };
 
 export default CryptoTransactions;

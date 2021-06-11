@@ -29,7 +29,7 @@ const Crypto = () => {
           </Box>
         </Col>
         <Col md="7" className="mx-auto">
-          <Box sx={{ mb: 6, mt: -13 }}>
+          <Box sx={{ mb: -6, mt: -13 }}>
             <Row>
               <Col md="auto" className="mr-auto">
                 <Graph />

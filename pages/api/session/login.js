@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 import * as yup from 'yup';
 
-import withSession from '../../../utils/session';
+import withSession from '../../../utils/middleware/session';
 import AccountService from '../../../utils/db/account';
 
 export default withSession(async (req, res) => {

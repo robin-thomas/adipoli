@@ -1,0 +1,13 @@
+name: scheduler
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scheduler Policy Pay
+        run: |
+          curl --request POST \
+          --url 'https://adipoli.vercel.app/api/policy/job' \
+          --header 'Authorization: Bearer ${{ secrets.SCHEDULER_KEY }}'

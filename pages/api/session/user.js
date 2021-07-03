@@ -1,7 +1,7 @@
-import withSession from '../../../utils/session'
+import withSession from '../../../utils/middleware/session';
 
 export default withSession(async (req, res) => {
-  const user = req.session.get('user')
+  const user = req.session.get('user');
 
   if (user) {
     // in a real world application you might read the user id from the session and then do a database request
@@ -9,10 +9,10 @@ export default withSession(async (req, res) => {
     res.json({
       isLoggedIn: true,
       ...user,
-    })
+    });
   } else {
     res.json({
       isLoggedIn: false,
-    })
+    });
   }
-})
+});

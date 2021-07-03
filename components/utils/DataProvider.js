@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 import fetchJson from '../../utils/fetchJson';
+import Airports from '../../config/airports.json';
+import config from '../../config/config.json';
 
 const DataContext = createContext();
 
@@ -11,6 +13,30 @@ const DataProvider = (props) => {
   const [prices, setPrices] = useState({});
   const [balances, setBalances] = useState({});
   const [portfolio, setPortfolio] = useState(null);
+
+  const [airports] = useState(Airports);
+
+  const [validAirports, setValidAirports] = useState({
+    from: false,
+    to: false,
+    date: false,
+  });
+
+  const [searchAirports, setSearchAirports] = useState({
+    from: null,
+    to: null,
+    date: null,
+  });
+
+  const [flight, setFlight] = useState({
+    code: null,
+    name: null,
+    departureTime: null,
+  });
+
+  const [openAbout, setOpenAbout] = useState(false);
+  const [policy, setPolicy] = useState(null);
+  const [policyProducts, setPolicyProducts] = useState(config.app.policy);
 
   useEffect(() => {
     (async () => {
@@ -88,6 +114,19 @@ const DataProvider = (props) => {
         setBalances,
         portfolio,
         setPortfolio,
+        airports,
+        validAirports,
+        setValidAirports,
+        searchAirports,
+        setSearchAirports,
+        flight,
+        setFlight,
+        openAbout,
+        setOpenAbout,
+        policy,
+        setPolicy,
+        policyProducts,
+        setPolicyProducts,
       }}
     >
       {props.children}

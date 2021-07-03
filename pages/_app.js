@@ -2,7 +2,10 @@ import { SWRConfig } from 'swr';
 import { ThemeProvider } from '@material-ui/core';
 import fetch from '../utils/fetchJson';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+import '../public/global.css';
 
 import theme from '../theme';
 import GlobalStyles from '../theme/GlobalStyles';

@@ -1,0 +1,39 @@
+{
+  "app": {
+    "name": "adipoli",
+    "server": "https://adipoli.vercel.app",
+    "network": {
+      "name": "rinkeby",
+      "network_id": "4",
+      "explorer": "https://rinkeby.etherscan.io/tx/{txHash}"
+    },
+    "api": {
+      "getFlightsByRoute": "/api/flight/search",
+      "getPolicy": "/api/policy/{policyId}",
+      "getPremium": "/api/policy/premium",
+      "createPolicy": "/api/policy",
+      "withdraw": "/api/wallet/withdraw"
+    },
+    "policy": [
+      "Flight Departure Delay",
+      "Flight Arrival Delay",
+      "Flight Cancellation"
+    ],
+    "payment": {
+      "delay": {
+        "15": 0.1,
+        "30": 0.2,
+        "60": 0.3,
+        "120": 0.4
+      },
+      "cancelled": 100
+    }
+  },
+  "aviationstack": {
+    "api": {
+      "getFlightsByRoute": "/flights?access_key={appKey}&dep_iata={from}&arr_iata={to}",
+      "getFlightByDeparture": "/flights?access_key={appKey}&dep_iata={from}&min_delay_dep=15",
+      "getFlight": "/flights?access_key={appKey}&dep_iata={from}&arr_iata={to}&flight_iata={code}"
+    }
+  }
+}

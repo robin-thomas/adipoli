@@ -1,6 +1,6 @@
 import { makeRequest } from './utils';
 
-import config from '../../tokens.json';
+import config from '../../config/tokens.json';
 
 const Price = {
   getPrices: async (tokenIds = Object.values(config).map((e) => e.id)) => {
@@ -16,9 +16,12 @@ const Price = {
     return prices;
   },
 
-  getPortfolioBalance: async (tokens) => {
+  getPortfolioBalance: async (tokens, prices = null) => {
     const tokenIds = Object.keys(tokens).map((t) => config[t].id);
-    const prices = await Price.getPrices(tokenIds);
+
+    if (!prices) {
+      prices = await Price.getPrices(tokenIds);
+    }
 
     const balance = Object.keys(tokens).reduce((p, t) => {
       const tokenId = config[t].id;

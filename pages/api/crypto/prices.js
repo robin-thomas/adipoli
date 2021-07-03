@@ -1,9 +1,15 @@
+import { withCryptoCache } from '../../../utils/middleware/cache';
 import CoingeckoUtil from '../../../utils/coingecko/price';
 
 async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const _prices = await CoingeckoUtil.getPrices();
+      if (!req.cache.has('price')) {
+        const resp = await CoingeckoUtil.getPrices();
+        req.cache.set('price', resp);
+      }
+
+      const _prices = req.cache.get('price');
 
       const prices = Object.keys(_prices).reduce(
         (p, t) => ({ ...p, [t]: _prices[t].usd }),
@@ -20,4 +26,4 @@ async function handler(req, res) {
   }
 }
 
-export default handler;
+export default withCryptoCache(handler);

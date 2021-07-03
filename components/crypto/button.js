@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 
-import tokens from '../../tokens.json';
+import tokens from '../../config/tokens.json';
 
 const CryptoButton = ({ isSubmitting, values, title }) => (
   <Button

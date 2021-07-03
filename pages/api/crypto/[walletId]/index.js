@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+import { withCryptoCache } from '../../../../utils/middleware/cache';
 import CryptoUtil from '../../../../utils/db/crypto';
 import CoingeckoUtil from '../../../../utils/coingecko/price';
 
@@ -19,14 +20,18 @@ async function handler(req, res) {
       const portfolio = await CryptoUtil.getBalance(req.query.walletId);
 
       if (portfolio?.tokens) {
-        portfolio.balance = await CoingeckoUtil.getPortfolioBalance(
-          portfolio.tokens
-        );
+        if (!req.cache.has('price')) {
+          const prices = await CoingeckoUtil.getPrices();
+          req.cache.set('price', prices);
+        }
+
+        const args = [portfolio.tokens, req.cache.get('price')];
+        portfolio.balance = await CoingeckoUtil.getPortfolioBalance(...args);
       }
 
       res.status(200).json({ statusCode: 200, success: true, portfolio });
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       res.status(400).json({ statusCode: 400, error: err.message });
     }
   } else {
@@ -34,4 +39,4 @@ async function handler(req, res) {
   }
 }
 
-export default handler;
+export default withCryptoCache(handler);

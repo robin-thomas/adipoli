@@ -22,7 +22,7 @@ const Page = ({ title, name, fetcher, end, children }) => {
 
   return (
     <Layout title={title}>
-      <Balance fetcher={fetcher} end={end} />
+      {fetcher && <Balance fetcher={fetcher} end={end} />}
       <Box
         sx={{
           display: 'flex',

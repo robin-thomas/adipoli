@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
-import tokens from '../../tokens.json';
+import tokens from '../../config/tokens.json';
 import { DataContext } from '../utils/DataProvider';
 import palette from '../../theme/palette';
 

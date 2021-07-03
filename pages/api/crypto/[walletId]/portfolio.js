@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { fromUnixTime, format } from 'date-fns';
 
-import config from '../../../../tokens.json';
+import config from '../../../../config/tokens.json';
 import TransactionUtil from '../../../../utils/db/transaction';
 
 const removeZeroValue = (tokens) =>

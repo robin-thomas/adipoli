@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Select, MenuItem } from '@material-ui/core';
 import { Row, Col, Container } from 'react-bootstrap';
 
-import tokens from '../../tokens.json';
+import tokens from '../../config/tokens.json';
 
 import styles from './buy.module.css';
 

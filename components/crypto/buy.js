@@ -12,7 +12,7 @@ import Message from '../page/message';
 import { DataContext } from '../utils/DataProvider';
 import fetchJson from '../../utils/fetchJson';
 
-import tokens from '../../tokens.json';
+import tokens from '../../config/tokens.json';
 
 import styles from './buy.module.css';
 

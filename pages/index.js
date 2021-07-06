@@ -33,8 +33,13 @@ const Index = () => {
             href="/flight-insurance"
           />
           <Card
+            title="Cryptocurrency"
+            description="Buy & sell cryptocurrencies. Portfolio tracker. Swap between cryptocurrencies."
+            href="/crypto"
+          />
+          <Card
             title="Wallet"
-            description="P2P transfers. Virtual credit cards. Cryptocurrency deposits."
+            description="Credit-card topups. P2P transfers. Generate payment links. Auto topups."
             href="/wallet"
           />
         </div>

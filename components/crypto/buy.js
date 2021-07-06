@@ -125,7 +125,7 @@ const Buy = () => {
             </p>
           </Box>
           <SelectCrypto
-            values={values}
+            token={values.token}
             isSubmitting={isSubmitting}
             handleChange={(e) => onChange(e, handleChange, values)}
           />

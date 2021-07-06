@@ -168,7 +168,7 @@ const Sell = () => {
             </p>
           </Box>
           <SelectCrypto
-            values={values}
+            token={values.token}
             isSubmitting={isSubmitting}
             handleChange={(e) => onSelectChange(e, handleChange, values)}
           />

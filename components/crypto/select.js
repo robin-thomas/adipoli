@@ -24,20 +24,41 @@ const SelectItem = ({ token }) => (
   </Container>
 );
 
-const SelectCrypto = ({ values, handleChange, isSubmitting }) => (
-  <Select
-    name="token"
-    value={values.token}
-    onChange={handleChange}
-    disabled={isSubmitting}
-    fullWidth
-  >
-    {Object.keys(tokens).map((token, index) => (
-      <MenuItem key={token} value={token}>
-        <SelectItem token={token} />
-      </MenuItem>
-    ))}
-  </Select>
-);
+const SelectCrypto = ({
+  name,
+  token,
+  disabledToken,
+  handleChange,
+  isSubmitting,
+  balances,
+}) => {
+  const _tokens = Object.keys(tokens).filter((_token) => {
+    if (balances && Object.keys(balances).length > 0) {
+      return Object.keys(balances).includes(_token);
+    }
+
+    return true;
+  });
+
+  return (
+    <Select
+      name={name || 'token'}
+      value={token}
+      onChange={handleChange}
+      disabled={isSubmitting}
+      fullWidth
+    >
+      {_tokens.map((_token, index) => (
+        <MenuItem
+          key={_token}
+          value={_token}
+          disabled={disabledToken && disabledToken === _token}
+        >
+          <SelectItem token={_token} />
+        </MenuItem>
+      ))}
+    </Select>
+  );
+};
 
 export default SelectCrypto;

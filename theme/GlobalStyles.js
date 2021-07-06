@@ -8,6 +8,9 @@ const useStyles = makeStyles(() =>
         margin: 0,
         padding: 0,
       },
+      '*:focus': {
+        outline: 'none !important',
+      },
       html: {
         '-webkit-font-smoothing': 'antialiased',
         '-moz-osx-font-smoothing': 'grayscale',

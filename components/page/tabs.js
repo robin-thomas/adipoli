@@ -19,7 +19,7 @@ const PageTab = ({ children, panels }) => {
       <Tabs value={value} onChange={handleChange}>
         {children}
       </Tabs>
-      <Box p={3} />
+      <Box p={2} />
       {panels.map((panel, index) => (
         <TabPanel key={index} index={index} value={value}>
           {panel}

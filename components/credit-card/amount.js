@@ -29,7 +29,7 @@ const Amount = ({
       value={values.amount}
       disabled={isSubmitting}
       InputLabelProps={{ shrink: true }}
-      // inputRef={(input) => input && input.focus()}
+      autoFocus
       inputProps={{
         style: {
           fontSize: 40,
@@ -39,7 +39,6 @@ const Amount = ({
         },
       }}
       InputProps={{
-        disableUnderline: true,
         startAdornment: <DollarAdornment />,
         endAdornment: <InputAdornment position="end">.00</InputAdornment>,
       }}

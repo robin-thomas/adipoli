@@ -6,7 +6,12 @@ const ExportCSV = ({ transactions }) => {
 
     const header = Object.keys(transactions[0]).join(',') + '\n';
     const data = transactions.reduce(
-      (p, c) => p + Object.values(c).join(',') + '\n',
+      (p, c) =>
+        p +
+        Object.values(c)
+          .map((e) => `"${e}"`)
+          .join(',') +
+        '\n',
       ''
     );
 

@@ -39,7 +39,7 @@ const Index = () => {
           />
           <Card
             title="Wallet"
-            description="Credit-card topups. P2P transfers. Generate payment links. Auto topups."
+            description="Credit-card topups. P2P transfers. Generate payment links."
             href="/wallet"
           />
         </div>

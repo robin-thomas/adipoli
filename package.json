@@ -29,7 +29,6 @@
     "date-fns": "^2.22.1",
     "formik": "^2.2.8",
     "lru-cache": "^6.0.0",
-    "mdbreact": "^5.0.2",
     "mdreact": "^0.1.5",
     "mongodb": "^3.6.9",
     "next": "^10.0.0",

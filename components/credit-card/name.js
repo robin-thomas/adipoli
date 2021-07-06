@@ -22,9 +22,6 @@ const Name = ({
     inputProps={{
       style: { fontSize: 23, fontFamily: 'Raleway', color: 'white' },
     }}
-    InputProps={{
-      disableUnderline: true,
-    }}
     InputLabelProps={{ shrink: true }}
   />
 );

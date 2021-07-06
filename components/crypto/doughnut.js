@@ -29,15 +29,19 @@ const DoughnutOptions = {
 const COLORS_SERIES = [
   palette.primary.light,
   palette.primary.lighten,
+  palette.secondary.main,
   palette.primary.main,
 ];
 
-const getData = (balances) => ({
-  labels: Object.keys(balances).map((e) => tokens[e].name),
+const getData = (balances, prices) => ({
+  labels: Object.keys(balances).map((e) => `${tokens[e].name} ($)`),
   datasets: [
     {
       label: 'Portfolio',
-      data: Object.values(balances),
+      data: Object.keys(balances).reduce(
+        (p, token) => [...p, balances[token] * prices[tokens[token].id]],
+        []
+      ),
       backgroundColor: COLORS_SERIES,
       hoverBackgroundColor: COLORS_SERIES,
     },
@@ -51,9 +55,9 @@ const Chart = () => {
 
   useEffect(() => {
     if (ctx.balances) {
-      setData(getData(ctx.balances));
+      setData(getData(ctx.balances, ctx.prices));
     }
-  }, [ctx.balances]);
+  }, [ctx.balances, ctx.prices]);
 
   if (!data) {
     return null;

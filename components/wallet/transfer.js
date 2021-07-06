@@ -58,8 +58,8 @@ const Transfer = () => {
   return (
     <>
       <p className={styles.text}>
-        You can transfer your wallet funds to another user using their email
-        address.
+        You can transfer your wallet funds to another{' '}
+        {process.env.NEXT_PUBLIC_APP_NAME} user using their email address.
       </p>
       <Formik
         initialValues={{
@@ -101,7 +101,7 @@ const Transfer = () => {
                   margin="normal"
                   value={values.amount}
                   disabled={isSubmitting}
-                  // inputRef={(input) => input && input.focus()}
+                  autoFocus
                   inputProps={{
                     style: {
                       fontSize: 50,
@@ -110,7 +110,6 @@ const Transfer = () => {
                     },
                   }}
                   InputProps={{
-                    disableUnderline: true,
                     startAdornment: <DollarAdornment />,
                     endAdornment: (
                       <InputAdornment position="end">.00</InputAdornment>
@@ -126,7 +125,7 @@ const Transfer = () => {
               name="email"
               onBlur={handleBlur}
               onChange={handleChange}
-              variant="outlined"
+              variant="standard"
               margin="normal"
               value={values.email}
               disabled={isSubmitting}

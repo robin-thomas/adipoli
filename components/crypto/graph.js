@@ -15,6 +15,8 @@ const CryptoLine = ({ data }) => (
     lineWidth={6}
     useMesh={true}
     enablePoints={true}
+    enablePointLabel={true}
+    pointLabel={(e) => `$${e.y}`}
     enableGridX={false}
     enableGridY={false}
     colors={{ scheme: 'red_grey' }}

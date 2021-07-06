@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import RedoIcon from '@material-ui/icons/Redo';
 
 import SelectCrypto from './select';
 import CryptoButton from './button';
@@ -133,7 +134,10 @@ const Swap = () => {
       )[0];
       const sellTokenId = tokens[sellToken].id;
 
-      const amount = limitSet(sellTokenId, sellToken);
+      const max = limitSet(sellTokenId, sellToken);
+      const amount =
+        max <= 10 ** 6 ? parseFloat(max.toString().substr(0, 6)) : max;
+
       const data = {
         token: sellToken,
         amount,
@@ -255,7 +259,7 @@ const Swap = () => {
             </Col>
             <Col md="2" className="text-center">
               <Box sx={{ mt: 0 }} className={styles.receive}>
-                =
+                <DoubleArrowIcon />
               </Box>
             </Col>
             <Col md="5">
@@ -276,11 +280,7 @@ const Swap = () => {
               </Box>
             </Col>
           </Row>
-          <Box sx={{ mt: 1, mb: 4 }}>
-            <p className={styles.para}>
-              Amount shall be deposited to your wallet balance.
-            </p>
-          </Box>
+          <Box sx={{ mt: 1, mb: 4 }}></Box>
           <Row>
             <Col>
               <SelectCrypto
@@ -290,17 +290,17 @@ const Swap = () => {
                 isSubmitting={isSubmitting}
                 handleChange={(e) => onSelectChange(e, values, setValues)}
               />
-            </Col>
-            <Col md="auto" className="align-self-center text-center px-0">
-              <DoubleArrowIcon fontSize="large" />
-            </Col>
-            <Col>
               <SelectCrypto
                 name="buyToken"
                 token={values.buyToken}
                 isSubmitting={isSubmitting}
                 disabledToken={values.token}
                 handleChange={(e) => onBuySelectChange(e, values, setValues)}
+              />
+            </Col>
+            <Col md="auto" className="align-self-center px-0">
+              <RedoIcon
+                style={{ transform: 'rotate(90deg)', fontSize: '50px' }}
               />
             </Col>
           </Row>

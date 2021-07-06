@@ -41,7 +41,6 @@ const CVV = ({
         style: { color: 'white' },
       }}
       InputProps={{
-        disableUnderline: true,
         style: { fontSize: 25, fontFamily: 'Raleway' },
       }}
     />

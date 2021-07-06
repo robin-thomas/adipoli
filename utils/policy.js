@@ -1,4 +1,4 @@
-import { getFlightStatus } from './aviationstack/flight';
+import { getFlightStatus } from './aviationstack/flightStats';
 import config from '../config/config.json';
 
 const calculatePayment = async (cache, policy) => {

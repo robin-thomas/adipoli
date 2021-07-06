@@ -3,7 +3,7 @@ import format from 'date-fns/format';
 import addDays from 'date-fns/addDays';
 import parseISO from 'date-fns/parseISO';
 
-import { MDBIcon } from 'mdbreact';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { Spinner, OverlayTrigger, Popover } from 'react-bootstrap';
 import { Button } from '@material-ui/core';
 
@@ -18,23 +18,21 @@ const StepperFormPayment = ({ setIndex, setNextDisabled }) => {
   const ref = useRef(null);
 
   // to be set after premium is calculated.
-  const [eth, setEth] = useState(0.56);
-  const [amount, setAmount] = useState(56);
+  const [eth, setEth] = useState(0);
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     const calcPolicy = async () => {
-      // const policyId =
-      //   new Date().valueOf().toString() +
-      //   Math.random().toString(10).substring(2, 10);
-      // console.log('Policy ID: ', policyId);
-
-      const policyId = '162554712307992793303';
+      const policyId =
+        new Date().valueOf().toString() +
+        Math.random().toString(10).substring(2, 10);
+      console.log('Policy ID: ', policyId);
 
       const from = Airports[ctx.searchAirports.from].iata;
-      // const premium = await getPremium(policyId, from, ctx.flight.code);
-      //
-      // setEth(premium);
-      // setAmount(Math.ceil(premium * 100));
+      const premium = await getPremium(policyId, from, ctx.flight.code);
+
+      setEth(premium);
+      setAmount(Math.ceil(premium * 100));
 
       const date = format(
         addDays(parseISO(ctx.flight.arrivalTime), 1),
@@ -102,11 +100,7 @@ const StepperFormPayment = ({ setIndex, setNextDisabled }) => {
                 </Popover>
               }
             >
-              <MDBIcon
-                far
-                icon="question-circle"
-                style={{ cursor: 'pointer' }}
-              />
+              <HelpOutlineIcon fontSize="large" style={{ cursor: 'pointer' }} />
             </OverlayTrigger>
           </p>
         </div>

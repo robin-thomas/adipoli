@@ -28,6 +28,8 @@ const CreditCard = ({ name, walletId, amount }) => {
       case 'visa':
       case 'mastercard':
         return `us_${issuer}_card`;
+
+      default:
     }
   };
 

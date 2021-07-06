@@ -33,8 +33,7 @@ const Sell = () => {
   const ctx = useContext(DataContext);
 
   const priceCal = (tokenId) => {
-    let _price = parseFloat(ctx.prices[tokenId]);
-    _price -= 0.01 * _price; // Add a spread of 3%;
+    const _price = 0.99 * parseFloat(ctx.prices[tokenId]);
     setPrice(_price);
 
     return _price;
@@ -45,7 +44,6 @@ const Sell = () => {
     const min = parseFloat((10 / _price).toFixed(5));
     const max = ctx.balances[token] || 0;
     setSchema(getSchema(min, max));
-    setInitial(getInitial(max));
 
     return max;
   };
@@ -54,17 +52,21 @@ const Sell = () => {
     if (Object.keys(ctx.prices).length > 0) {
       const token = Object.keys(tokens)[0];
       const tokenId = tokens[token].id;
-      limitSet(tokenId, token);
+      const max = limitSet(tokenId, token);
+      setInitial(getInitial(max));
     }
   }, [ctx.prices, ctx.balances]);
 
-  const onSelectChange = (e, handleChange, values) => {
-    const tokenId = tokens[e.target.value].id;
+  const onSelectChange = (e, values, setValues) => {
+    const token = e.target.value;
+    const tokenId = tokens[token].id;
 
-    const max = limitSet(tokenId, e.target.value);
+    const max = limitSet(tokenId, token);
+    values.amount =
+      max <= 10 ** 6 ? parseFloat(max.toString().substr(0, 6)) : max;
+    values.token = token;
 
-    values.amount = max;
-    handleChange(e);
+    setValues(values);
   };
 
   const onSubmit = async (values, setStatus) => {
@@ -114,6 +116,7 @@ const Sell = () => {
         touched,
         values,
         status,
+        setValues,
       }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
           <Message status={status} />
@@ -169,8 +172,9 @@ const Sell = () => {
           </Box>
           <SelectCrypto
             token={values.token}
+            balances={ctx.balances}
             isSubmitting={isSubmitting}
-            handleChange={(e) => onSelectChange(e, handleChange, values)}
+            handleChange={(e) => onSelectChange(e, values, setValues)}
           />
           <CryptoRate
             prices={ctx.prices}

@@ -33,18 +33,40 @@ const Wallet = {
     throw new Error(response.status.error_code ?? 'Failed');
   },
 
-  transfer: async (params) => {
+  completeTransfer: async (id) => {
     const data = {
-      amount: params.amount,
-      currency: 'USD',
-      source_ewallet: params.sourceWalletId,
-      destination_ewallet: params.destinationWalletId,
+      id,
+      status: 'accept',
     };
 
     const method = 'post';
-    const url = '/v1/account/transfer';
+    const url = '/v1/account/transfer/response';
 
     return await makeRequest({ method, url, data });
+  },
+
+  transfer: async (params) => {
+    try {
+      const data = {
+        amount: params.amount,
+        currency: 'USD',
+        source_ewallet: params.sourceWalletId,
+        destination_ewallet: params.destinationWalletId,
+      };
+
+      const method = 'post';
+      const url = '/v1/account/transfer';
+
+      const resp = await makeRequest({ method, url, data });
+
+      if (resp?.data?.status === 'PEN') {
+        return await Wallet.completeTransfer(resp.data.id);
+      }
+
+      return resp;
+    } catch (err) {
+      throw err;
+    }
   },
 
   topUp: async (params) => {

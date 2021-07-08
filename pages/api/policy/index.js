@@ -8,12 +8,7 @@ async function handler(req, res) {
         ...req.body,
         premium: {
           paid: true,
-          amount:
-            100 *
-            Contract.getWeb3().utils.toWei(
-              req.body.premium.amount.toString(),
-              'ether'
-            ),
+          amount: req.body.premium.amount,
           txHash: '',
         },
         payment: {
@@ -28,10 +23,11 @@ async function handler(req, res) {
 
       const cacheKey = `policy-${policy.policyId}`;
       req.cache.set(cacheKey, forCache);
-      await Contract.invokeFn('createNewPolicy', false /* isPure */, policy);
-      req.cache.del(cacheKey);
 
       res.status(200).send();
+
+      await Contract.invokeFn('createNewPolicy', false /* isPure */, policy);
+      req.cache.del(cacheKey);
     } catch (err) {
       console.error(err);
       res.status(400).json({ statusCode: 400, error: err.message });

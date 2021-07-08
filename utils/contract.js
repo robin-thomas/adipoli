@@ -61,7 +61,7 @@ const Contract = {
         to: contract.networks[config.app.network.network_id].address,
         data: fn.encodeABI(),
         gas: 10000000,
-        gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'Gwei')),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('100', 'Gwei')),
       };
 
       const signedTx = await web3.eth.signTransaction(tx, tx.from);

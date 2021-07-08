@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { Alert, Box, Button } from '@material-ui/core';
 
@@ -10,6 +10,8 @@ const StepperPayment = ({ amount, eth, cb }) => {
 
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(eth === 0);
+
+  useEffect(() => setDisabled(eth === 0), [eth]);
 
   const payment = async () => {
     setError('');
@@ -41,9 +43,11 @@ const StepperPayment = ({ amount, eth, cb }) => {
           <Alert severity="error">{error}</Alert>
         </Box>
       )}
-      <Button variant="contained" disabled={disabled} onClick={payment}>
-        Pay ${amount} from your wallet
-      </Button>
+      <Box sx={{ mt: 2 }}>
+        <Button variant="contained" disabled={disabled} onClick={payment}>
+          Pay ${amount} from your wallet
+        </Button>
+      </Box>
     </>
   );
 };

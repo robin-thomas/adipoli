@@ -146,8 +146,7 @@ const Swap = () => {
       };
 
       const buyTokenId = tokens[buyToken].id;
-      const sellAmount =
-        data.amount * 0.99 * parseFloat(ctx.prices[sellTokenId]);
+      const sellAmount = 0.99 * parseFloat(ctx.prices[sellTokenId]);
       const _price = parseFloat(
         (sellAmount / ctx.prices[buyTokenId]).toFixed(5)
       );
@@ -166,8 +165,7 @@ const Swap = () => {
 
       const sellTokenId = tokens[values.token].id;
       const buyTokenId = tokens[values.buyToken].id;
-      const sellAmount =
-        values.amount * 0.99 * parseFloat(ctx.prices[sellTokenId]);
+      const sellAmount = 0.99 * parseFloat(ctx.prices[sellTokenId]);
       const _price = parseFloat(
         (sellAmount / ctx.prices[buyTokenId]).toFixed(5)
       );

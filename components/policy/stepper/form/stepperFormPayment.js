@@ -53,7 +53,7 @@ const StepperFormPayment = ({ setIndex, setNextDisabled }) => {
           arrivalTime: ctx.flight.arrivalTime,
         },
         premium: {
-          amount,
+          amount: premium,
         },
       };
 

@@ -43,11 +43,13 @@ const StepperPayment = ({ amount, eth, cb }) => {
           <Alert severity="error">{error}</Alert>
         </Box>
       )}
-      <Box sx={{ mt: 2 }}>
-        <Button variant="contained" disabled={disabled} onClick={payment}>
-          Pay ${amount} from your wallet
-        </Button>
-      </Box>
+      {eth > 0 && (
+        <Box sx={{ mt: 2 }}>
+          <Button variant="contained" disabled={disabled} onClick={payment}>
+            Pay ${amount} from your wallet
+          </Button>
+        </Box>
+      )}
     </>
   );
 };
